@@ -14,12 +14,8 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { type: 'spring', stiffness: 60, damping: 15 }
-  }
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
 };
 
 const GallerySection = ({ title, images }) => {
@@ -34,7 +30,13 @@ const GallerySection = ({ title, images }) => {
       variants={containerVariants}
     >
       <motion.h3 
-        variants={itemVariants}
+        variants={{
+          hidden: { opacity: 0, x: -40 },
+          visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: 'easeOut' } }
+        }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
         className="fw-bold text-accent-custom mb-4 border-bottom border-light pb-2 d-inline-block p-0"
       >
         {title}

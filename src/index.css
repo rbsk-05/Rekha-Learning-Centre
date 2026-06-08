@@ -71,6 +71,7 @@ html {
 
 .nav-link:hover {
   color: var(--accent-color) !important;
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
 }
 
 /* Footer Styles */

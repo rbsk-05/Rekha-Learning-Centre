@@ -21,10 +21,16 @@ const Testimonials = () => {
     <section id="testimonials" className="section-padding bg-primary-custom" style={{ overflow: 'hidden' }}>
       <Container>
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-5">
-          <div className="text-center text-md-start mb-4 mb-md-0">
+          <motion.div 
+            className="text-center text-md-start mb-4 mb-md-0"
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+          >
             <h2 className="display-6 fw-bold text-light text-sweep-hover">Success Stories</h2>
             <div style={{ width: '60px', height: '4px', backgroundColor: 'var(--accent-color)' }} className="mx-auto mx-md-0 mt-1"></div>
-          </div>
+          </motion.div>
           
           <div className="d-flex rounded-pill overflow-hidden border p-1" style={{ borderColor: 'rgba(255,255,255,0.2)', backgroundColor: 'rgba(0,0,0,0.2)' }}>
             <button 
