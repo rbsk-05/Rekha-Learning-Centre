@@ -335,3 +335,25 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--secondary-color);
 }
+
+/* Gallery & Lightbox Polish */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.border-start-lg {
+  border-left: 1px solid var(--border-light);
+}
+@media (max-width: 991.98px) {
+  .border-start-lg {
+    border-left: none;
+  }
+}
