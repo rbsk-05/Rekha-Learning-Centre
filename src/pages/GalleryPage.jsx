@@ -383,7 +383,7 @@ const GalleryPage = () => {
                   Want Your Child to Experience This Supportive Growth?
                 </h3>
                 <p className="text-muted mb-4">
-                  Join Rekha Learning Centre for coaching from 2nd to 10th standard (CBSE & Matriculation). Give your child academic strength, moral grounding, and joyful memories.
+                  Join Rekha Learning Centre for coaching from 2nd to 10th standard (CBSE, ICSE & State Board). Give your child academic strength, moral grounding, and joyful memories.
                 </p>
                 <div className="d-flex justify-content-center gap-3 flex-wrap">
                   <Button href="/#contact" className="btn-custom">

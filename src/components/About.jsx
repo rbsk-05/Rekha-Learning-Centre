@@ -11,7 +11,7 @@ const About = () => {
             <h2 className="display-6 fw-bold text-primary-custom mb-3">About Us</h2>
             <div className="section-accent-line mb-4"></div>
             <p className="lead text-dark mb-4 fs-5" style={{ lineHeight: '1.7' }}>
-              With over 10 years of experience, <strong className="text-secondary-custom">Rekha Learning Centre</strong> offers comprehensive coaching for 2nd to 10th standard students covering both CBSE and Matriculation syllabus. 
+              With over 10 years of experience, <strong className="text-secondary-custom">Rekha Learning Centre</strong> offers comprehensive coaching for 2nd to 10th standard students covering CBSE, ICSE, and State Board syllabi. 
             </p>
             <p className="text-muted mb-4" style={{ lineHeight: '1.8' }}>
               Our classes are conducted in a friendly, patient, and supportive environment where students can ask questions freely and learn at their own pace. We maintain a strong focus on concept clarity, consistent practice, and personal attention to ensure every child reaches their full academic potential.
@@ -19,21 +19,21 @@ const About = () => {
             
             <Row className="mt-4 g-3">
               <Col sm={4} className="text-center">
-                <div className="p-3 bg-white rounded-3 shadow-sm border" style={{ borderColor: 'var(--border-light)' }}>
+                <div className="p-3 bg-white rounded-3 shadow-sm border h-100 d-flex flex-column justify-content-center align-items-center" style={{ borderColor: 'var(--border-light)' }}>
                   <FaGraduationCap size={34} className="text-accent-custom mb-2" />
                   <h6 className="fw-bold text-dark mb-1">2nd to 10th</h6>
                   <p className="small text-muted mb-0">Standard</p>
                 </div>
               </Col>
               <Col sm={4} className="text-center">
-                <div className="p-3 bg-white rounded-3 shadow-sm border" style={{ borderColor: 'var(--border-light)' }}>
+                <div className="p-3 bg-white rounded-3 shadow-sm border h-100 d-flex flex-column justify-content-center align-items-center" style={{ borderColor: 'var(--border-light)' }}>
                   <FaChalkboardTeacher size={34} className="text-secondary-custom mb-2" />
-                  <h6 className="fw-bold text-dark mb-1">CBSE & Matric</h6>
+                  <h6 className="fw-bold text-dark mb-1" style={{ fontSize: '0.95rem' }}>CBSE, ICSE & State</h6>
                   <p className="small text-muted mb-0">Syllabus</p>
                 </div>
               </Col>
               <Col sm={4} className="text-center">
-                <div className="p-3 bg-white rounded-3 shadow-sm border" style={{ borderColor: 'var(--border-light)' }}>
+                <div className="p-3 bg-white rounded-3 shadow-sm border h-100 d-flex flex-column justify-content-center align-items-center" style={{ borderColor: 'var(--border-light)' }}>
                   <FaRegSmileBeam size={34} className="text-green-custom mb-2" />
                   <h6 className="fw-bold text-dark mb-1">Supportive</h6>
                   <p className="small text-muted mb-0">Environment</p>

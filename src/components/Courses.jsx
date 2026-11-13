@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 const courses = [
   { id: 1, title: '2nd to 10th Standard', desc: 'Comprehensive coaching for foundational learning.', icon: <FaGraduationCap size={28} />, color: 'var(--primary-color)' },
   { id: 2, title: 'All Subjects', desc: 'Expert guidance across everything in the curriculum.', icon: <FaChalkboardTeacher size={28} />, color: 'var(--secondary-color)' },
-  { id: 3, title: 'Matric and CBSE', desc: 'Tailored test series and syllabus coverage for both boards.', icon: <FaBook size={28} />, color: 'var(--primary-color)' },
+  { id: 3, title: 'CBSE, ICSE & State Board', desc: 'Tailored test series and syllabus coverage across all boards.', icon: <FaBook size={28} />, color: 'var(--primary-color)' },
   { id: 4, title: 'Handwriting', desc: 'Improve legibility and neatness with dedicated practice sheets.', icon: <FaPenFancy size={28} />, color: 'var(--leaf-green)' },
   { id: 5, title: 'Grammar', desc: 'Master the rules of English to build a strong communication baseline.', icon: <FaFont size={28} />, color: 'var(--secondary-color)' },
   { id: 6, title: 'Spoken English', desc: 'Interactive speaking sessions to build fluency and confidence.', icon: <FaComments size={28} />, color: 'var(--accent-color)' },
@@ -64,8 +64,8 @@ const Courses = () => {
                   >
                     {course.icon}
                   </div>
-                  <h5 className="fw-bold fs-6 mb-2 text-dark">{course.title}</h5>
-                  <p className="mb-0 text-muted small">{course.desc}</p>
+                  <h5 className="fw-bold fs-6 mb-2 text-dark d-flex align-items-center justify-content-center" style={{ minHeight: '2.6rem' }}>{course.title}</h5>
+                  <p className="mb-0 text-muted small flex-grow-1">{course.desc}</p>
                 </div>
               </Col>
             ))}
