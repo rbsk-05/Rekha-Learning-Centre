@@ -7,16 +7,40 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies & Build Outputs
 node_modules
 dist
 dist-ssr
 *.local
 
+# Environment variables & secrets (sensitive data)
+.env
+.env.local
+.env.*.local
+*.env
+
+# Asset Images & Media (Private event/student photos & large media not needed in public repo)
+src/assets/images/
+src/assets/images/*
+src/assets/images/**/*
+
+# Video formats
+*.mp4
+*.mov
+*.avi
+*.wmv
+*.mkv
+*.webm
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
