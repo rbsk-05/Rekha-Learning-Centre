@@ -20,7 +20,6 @@ const Contact = () => {
       return;
     }
     
-    // Basic email regex mapping
     if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
       setStatus({ type: 'danger', message: 'Please enter a valid email address.' });
       return;
@@ -39,7 +38,7 @@ const Contact = () => {
         from_email: formData.email,
         message: formData.message,
         to_email: 'rrekhamurugan@gmail.com',
-        reply_to: formData.email // Direct reply logic
+        reply_to: formData.email
       };
 
       await emailjs.send(serviceId, templateId, templateParams, publicKey);
@@ -58,24 +57,29 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="section-padding">
+    <section id="contact" className="section-padding bg-white">
       <Container>
         <div className="text-center mb-5">
-          <h2 className="display-6 fw-bold text-primary-custom text-sweep-hover">Contact Us</h2>
-          <div className="mx-auto" style={{ width: '60px', height: '4px', backgroundColor: 'var(--accent-color)' }}></div>
-          <p className="text-muted mt-3 mb-0">Get in touch to secure your child's future</p>
+          <h2 className="display-6 fw-bold text-primary-custom mb-3">Contact Us</h2>
+          <div className="section-accent-line mx-auto mb-3"></div>
+          <p className="text-muted mb-0">Get in touch to secure your child's academic future</p>
         </div>
 
-        <Row className="g-5">
+        <Row className="g-4">
           <Col lg={5}>
-            <Card className="border-0 shadow-sm h-100 p-4 bg-primary-custom text-light rounded-4">
-              <h3 className="fw-bold mb-4">Contact Information</h3>
+            <div 
+              className="h-100 p-4 p-md-5 rounded-4 shadow-sm text-white"
+              style={{
+                backgroundColor: 'var(--primary-color)'
+              }}
+            >
+              <h4 className="fw-bold mb-4 text-white">Contact Information</h4>
               
               <div className="d-flex align-items-start mb-4">
-                <FaMapMarkerAlt size={24} className="text-accent-custom me-3 mt-1" />
+                <FaMapMarkerAlt size={22} className="text-accent-custom me-3 mt-1" />
                 <div>
-                  <h5 className="fw-bold mb-1">Our Location</h5>
-                  <p className="mb-0 text-light opacity-75">
+                  <h6 className="fw-bold mb-1 text-white">Our Location</h6>
+                  <p className="mb-0 text-white-50 small" style={{ lineHeight: '1.6' }}>
                     New 31/2, Old No 15/2,<br />
                     Lakshmipuram Rd, Vadapalani,<br />
                     Tamil Nadu 600026
@@ -84,36 +88,37 @@ const Contact = () => {
               </div>
 
               <div className="d-flex align-items-start mb-4">
-                <FaPhoneAlt size={20} className="text-accent-custom me-3 mt-1" />
+                <FaPhoneAlt size={18} className="text-accent-custom me-3 mt-1" />
                 <div>
-                  <h5 className="fw-bold mb-1">Phone Number</h5>
-                  <p className="mb-0 text-light opacity-75">+91 8248748595</p>
+                  <h6 className="fw-bold mb-1 text-white">Phone Number</h6>
+                  <p className="mb-0 text-white-50 small">+91 8248748595</p>
                 </div>
               </div>
 
               <div className="d-flex align-items-start mb-5">
-                <FaEnvelope size={20} className="text-accent-custom me-3 mt-1" />
+                <FaEnvelope size={18} className="text-accent-custom me-3 mt-1" />
                 <div>
-                  <h5 className="fw-bold mb-1">Email Address</h5>
-                  <p className="mb-0 text-light opacity-75">rrekhamurugan@gmail.com</p>
+                  <h6 className="fw-bold mb-1 text-white">Email Address</h6>
+                  <p className="mb-0 text-white-50 small">rrekhamurugan@gmail.com</p>
                 </div>
               </div>
 
-              <motion.a 
+              <a 
                 href="tel:+918248748595"
-                className="btn btn-custom w-100 d-flex align-items-center justify-content-center py-3 text-decoration-none rounded-pill"
-                whileHover={{ scale: 1.03, boxShadow: "0 10px 20px rgba(212, 175, 55, 0.3)" }}
-                transition={{ duration: 0.3 }}
+                className="btn btn-custom w-100 d-flex align-items-center justify-content-center py-3 text-decoration-none"
               >
-                <FaPhoneAlt size={18} className="me-2" /> Call Us Directly
-              </motion.a>
+                <FaPhoneAlt size={16} className="me-2" /> Call Us Directly
+              </a>
               
-            </Card>
+            </div>
           </Col>
 
           <Col lg={7}>
-            <Card className="border-0 shadow-sm p-4 rounded-4 h-100">
-              <h3 className="fw-bold mb-4 text-primary-custom">Send us a Message</h3>
+            <Card 
+              className="border-0 shadow-sm p-4 p-md-5 rounded-4 h-100 bg-white border"
+              style={{ borderColor: 'var(--border-light)' }}
+            >
+              <h4 className="fw-bold mb-4 text-dark">Send us a Message</h4>
               
               {status.message && (
                 <Alert variant={status.type} onClose={() => setStatus({ type: '', message: '' })} dismissible>
@@ -125,33 +130,33 @@ const Contact = () => {
                 <Row>
                   <Col md={6} className="mb-3">
                     <Form.Group>
-                      <Form.Label className="fw-medium">Your Name *</Form.Label>
+                      <Form.Label className="fw-medium text-dark small">Your Name *</Form.Label>
                       <Form.Control 
                         type="text" 
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="Enter your full name" 
-                        className="p-2" 
+                        placeholder="Enter full name" 
+                        className="p-3" 
                       />
                     </Form.Group>
                   </Col>
                   <Col md={6} className="mb-3">
                     <Form.Group>
-                      <Form.Label className="fw-medium">Email Address *</Form.Label>
+                      <Form.Label className="fw-medium text-dark small">Email Address *</Form.Label>
                       <Form.Control 
                         type="email" 
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="Enter your email" 
-                        className="p-2" 
+                        placeholder="Enter email" 
+                        className="p-3" 
                       />
                     </Form.Group>
                   </Col>
                 </Row>
                 <Form.Group className="mb-4">
-                  <Form.Label className="fw-medium">Message *</Form.Label>
+                  <Form.Label className="fw-medium text-dark small">Message *</Form.Label>
                   <Form.Control 
                     as="textarea" 
                     name="message"
@@ -159,15 +164,14 @@ const Contact = () => {
                     onChange={handleChange}
                     rows={4} 
                     placeholder="How can we help your child?" 
-                    className="p-2" 
+                    className="p-3" 
                   />
                 </Form.Group>
                 
-                <motion.button 
+                <button 
                   type="submit"
                   disabled={isSubmitting}
-                  className="btn btn-custom w-100 rounded-pill py-3 d-flex align-items-center justify-content-center border-0 fw-bold fs-6"
-                  whileHover={!isSubmitting ? { scale: 1.02, boxShadow: "0 5px 15px rgba(212, 175, 55, 0.4)" } : {}}
+                  className="btn btn-custom w-100 py-3 d-flex align-items-center justify-content-center"
                 >
                   {isSubmitting ? (
                     <>
@@ -179,16 +183,23 @@ const Contact = () => {
                       <FaEnvelope className="me-2" /> Send Message
                     </>
                   )}
-                </motion.button>
+                </button>
               </Form>
             </Card>
           </Col>
 
-          {/* Map Placeholder */}
-          <Col xs={12} className="mt-5">
-            <div className="rounded-4 overflow-hidden shadow-sm shadow-lg" style={{ height: '400px', backgroundColor: '#e9ecef' }}>
+          {/* Map */}
+          <Col xs={12} className="mt-4">
+            <div 
+              className="rounded-4 overflow-hidden border shadow-sm" 
+              style={{ 
+                height: '380px', 
+                backgroundColor: '#f1f5f9',
+                borderColor: 'var(--border-light)'
+              }}
+            >
               <iframe 
-                title="Rekha Learning Center Location"
+                title="Rekha Learning Centre Location"
                 src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=Rekha%20tuition%20centre,%20New%2031/2,%20oldno%2015/2,%20Lakshmipuram%20Rd,%20Vadapalani,%20Tamil%20Nadu%20600026+(Rekha%20Tuition%20Centre)&t=&z=15&ie=UTF8&iwloc=B&output=embed" 
                 width="100%" 
                 height="100%" 

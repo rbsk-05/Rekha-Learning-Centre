@@ -1,152 +1,337 @@
 :root {
-  --primary-color: #002147; /* Navy Blue */
-  --secondary-color: #fdf5e6; /* Soft Yellow */
-  --accent-color: #d4af37; /* Gold */
-  --text-dark: #333333;
+  /* Brand Palette from Logo.png */
+  --primary-color: #03235b;    /* Deep Royal Navy from Logo */
+  --primary-hover: #021a44;
+  --secondary-color: #ae0558;  /* Crimson-Magenta from Logo */
+  --secondary-hover: #910348;
+  --accent-color: #d98200;     /* Refined Amber Gold for high contrast on white */
+  --accent-light: #f4b020;
+  --leaf-green: #2e7d32;       /* Forest / Leaf Green */
+
+  /* Minimalist Light Surface & Text Palette */
+  --bg-main: #ffffff;
+  --bg-subtle: #f8fafc;
+  --bg-card: #ffffff;
+  --border-light: #e2e8f0;
+  --border-subtle: #edf2f7;
+
+  --text-primary: #0f172a;     /* Deep Slate / Crisp Dark for Primary Headings */
+  --text-heading: #03235b;     /* Brand Royal Navy for Section Titles */
+  --text-secondary: #334155;   /* Slate for Subtitles */
+  --text-muted: #64748b;       /* Muted Slate for Descriptions */
   --text-light: #ffffff;
 }
 
 body {
-  font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  color: var(--text-light); /* Changed to light */
-  background-color: var(--primary-color);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text-primary);
+  background-color: var(--bg-main);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 76px;
+  scroll-padding-top: 80px;
 }
 
-/* Override default bootstrap classes to enforce global dark aesthetics */
+/* Background Utility Classes */
 .bg-light, .bg-white {
+  background-color: var(--bg-main) !important;
+}
+
+.bg-subtle-section {
+  background-color: var(--bg-subtle) !important;
+}
+
+.bg-primary-custom {
   background-color: var(--primary-color) !important;
+  color: #ffffff;
 }
 
-.text-primary-custom { color: var(--accent-color) !important; /* switch primary texts to gold in dark mode */ }
-.text-accent-custom { color: var(--accent-color) !important; }
-.bg-primary-custom { background-color: var(--primary-color) !important; color: var(--text-light); }
-.bg-secondary-custom { background-color: var(--secondary-color) !important; }
+/* Text Utility Classes - Strictly Singular Solid Colors */
+.text-primary-custom { 
+  color: var(--primary-color) !important; 
+}
 
-/* Visibility modifications */
+.text-secondary-custom { 
+  color: var(--secondary-color) !important; 
+}
+
+.text-accent-custom { 
+  color: var(--accent-color) !important; 
+}
+
+.text-green-custom { 
+  color: var(--leaf-green) !important; 
+}
+
 .text-muted {
-  color: rgba(255, 255, 255, 0.7) !important;
-}
-.text-dark {
-  color: var(--text-light) !important;
-}
-.card {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  color: var(--text-light) !important;
+  color: var(--text-muted) !important;
 }
 
-/* Nav Glass Styles */
+.text-dark {
+  color: var(--text-primary) !important;
+}
+
+/* Section Padding */
+.section-padding {
+  padding: 90px 0;
+}
+
+/* Minimalist Section Accent Line */
+.section-accent-line {
+  height: 3px;
+  width: 50px;
+  background-color: var(--secondary-color);
+  border-radius: 2px;
+}
+
+/* Navbar - Minimalist Crisp White Glass */
 .navbar-glass {
-  background: linear-gradient(120deg, rgba(0, 33, 71, 0.6), rgba(0, 33, 71, 0.4)) !important;
+  background: rgba(255, 255, 255, 0.94) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  padding-top: 20px;
-  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-light) !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+  padding-top: 14px;
+  padding-bottom: 14px;
   transition: all 0.3s ease-in-out;
 }
 
 .navbar-glass.scrolled {
-  background: linear-gradient(120deg, rgba(0, 33, 71, 0.9), rgba(0, 33, 71, 0.8)) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.98) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
-.navbar-brand span {
-  transition: all 0.3s ease;
+.brand-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo-img {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.25s ease;
+}
+
+.navbar-brand:hover .brand-logo-img {
+  transform: scale(1.04);
+}
+
+.brand-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  line-height: 1.15;
+  letter-spacing: -0.3px;
+}
+
+.brand-subtitle {
+  font-size: 0.7rem;
+  color: var(--secondary-color);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
 .nav-link {
-  color: rgba(255,255,255,0.85) !important;
+  color: #334155 !important;
+  font-weight: 600;
+  font-size: 0.95rem;
   position: relative;
-  transition: color 0.3s ease;
+  transition: color 0.25s ease;
+  padding-left: 0.9rem !important;
+  padding-right: 0.9rem !important;
 }
 
 .nav-link:hover {
-  color: var(--accent-color) !important;
-  text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+  color: var(--secondary-color) !important;
 }
 
-/* Footer Styles */
-.footer-link {
-  color: rgba(255, 255, 255, 0.75);
-  text-decoration: none;
-  position: relative;
-  transition: color 0.3s ease;
-  width: fit-content;
-}
-
-.footer-link:hover {
-  color: var(--accent-color);
-}
-
-.footer-link::after {
+.nav-link::after {
   content: '';
   position: absolute;
   width: 0;
   height: 2px;
-  bottom: -4px;
-  left: 0;
-  background-color: var(--accent-color);
-  transition: width 0.3s ease;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--secondary-color);
+  transition: width 0.25s ease;
 }
 
-.footer-link:hover::after {
-  width: 100%;
+.nav-link:hover::after {
+  width: 60%;
 }
 
-.tracking-wide {
-  letter-spacing: 1px;
-}
-
+/* Modern Minimalist Buttons - Solid Colors, No Gimmicks */
 .btn-custom {
-  background-color: var(--accent-color);
-  color: #002147;
+  background-color: var(--secondary-color) !important;
+  color: #ffffff !important;
   border: none;
   font-weight: 600;
-  padding: 0.75rem 1.5rem;
-  transition: all 0.3s ease;
+  font-size: 1rem;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(174, 5, 88, 0.2);
 }
 
 .btn-custom:hover {
-  background-color: #fdf5e6;
+  background-color: var(--secondary-hover) !important;
+  color: #ffffff !important;
   transform: translateY(-2px);
-  color: #002147;
+  box-shadow: 0 6px 18px rgba(174, 5, 88, 0.3);
 }
 
+.btn-outline-custom {
+  border: 2px solid var(--primary-color) !important;
+  color: var(--primary-color) !important;
+  background-color: transparent !important;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.72rem 1.9rem;
+  border-radius: 50px;
+  transition: all 0.25s ease;
+}
+
+.btn-outline-custom:hover {
+  background-color: var(--primary-color) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(3, 35, 91, 0.15);
+}
+
+/* Minimalist Clean Cards */
 .hover-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light) !important;
+  border-radius: 14px;
+  transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), 
+              box-shadow 0.3s cubic-bezier(0.165, 0.84, 0.44, 1),
+              border-color 0.3s ease;
 }
 
 .hover-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.5) !important;
+  box-shadow: 0 12px 30px -5px rgba(3, 35, 91, 0.08), 0 4px 10px -2px rgba(0, 0, 0, 0.03) !important;
+  border-color: rgba(174, 5, 88, 0.3) !important;
 }
 
-.section-padding {
-  padding: 80px 0;
-}
-
-/* Custom Text Sweep */
-.text-sweep-hover {
-  background: linear-gradient(to right, var(--accent-color) 50%, var(--text-light) 50%);
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: background-position 0.6s ease;
-  cursor: default;
+/* Hero Section Elements */
+.hero-logo-wrapper {
   display: inline-block;
+  padding: 6px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(3, 35, 91, 0.06);
+  border: 1px solid var(--border-light);
 }
 
-.text-sweep-hover:hover {
-  background-position: 0 0;
+.hero-logo-img {
+  max-height: 105px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Hero Title - Dotless i with Crisp, Interpret-Friendly Swastika */
+.hero-title {
+  color: var(--primary-color);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+}
+
+.swastik-i-container {
+  position: relative;
+  display: inline-block;
+  color: var(--primary-color);
+  font-style: normal;
+  vertical-align: baseline;
+  line-height: 1;
+}
+
+/* Dotless i: completely hides standard dot */
+.dotless-i {
+  display: inline-block;
+  color: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+/* Swastika: clean, crisp, sharp, with comfortable breathing space above the stem */
+.swastik-dot-img {
+  position: absolute;
+  bottom: 0.68em;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0.28em;
+  height: 0.28em;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+  transition: transform 0.2s ease;
+}
+
+.swastik-i-container:hover .swastik-dot-img {
+  transform: translateX(-50%) translateY(-2px) scale(1.08);
+}
+
+/* Footer Minimalist Styling */
+.footer-link {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+  width: fit-content;
+}
+
+.footer-link:hover {
+  color: #ffffff;
+}
+
+.footer-logo-img {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  background-color: #ffffff;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+/* Form Controls - Crisp Light */
+.form-control {
+  border: 1px solid var(--border-light) !important;
+  background-color: #ffffff !important;
+  color: var(--text-primary) !important;
+  border-radius: 10px !important;
+  font-size: 0.95rem !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 3px rgba(3, 35, 91, 0.1) !important;
+}
+
+/* Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
 }

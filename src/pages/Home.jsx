@@ -8,12 +8,14 @@ import Gallery from '../components/Gallery';
 import Testimonials from '../components/Testimonials';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
+import FloatingBackground from '../components/common/FloatingBackground';
 
 const Home = () => {
   return (
     <>
       <Navigation />
-      <main>
+      <main style={{ position: 'relative', overflow: 'hidden' }}>
+        <FloatingBackground />
         <Hero />
         <About />
         <Courses />

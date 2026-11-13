@@ -1,39 +1,42 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { FaGraduationCap, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
+import logoImg from '../assets/logo.png';
 
 const Footer = () => {
   return (
-    <motion.footer 
+    <footer 
       className="text-light pt-5 pb-4"
       style={{ 
         backgroundColor: 'var(--primary-color)',
-        borderTop: '2px solid rgba(212, 175, 55, 0.3)', // subtle gold separator
-        boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.4)'
+        borderTop: '3px solid var(--secondary-color)'
       }}
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.6 }}
     >
       <Container className="px-md-5">
         <Row className="gy-4 mb-4 justify-content-between">
           
           <Col lg={4} md={6}>
-            <div className="d-flex align-items-center mb-4">
-              <FaGraduationCap size={32} className="text-accent-custom me-3" />
-              <span className="fs-3 fw-bold text-white text-sweep-hover">Rekha Learning Center</span>
+            <div className="d-flex align-items-center mb-3">
+              <img 
+                src={logoImg} 
+                alt="Rekha Learning Centre Logo" 
+                className="footer-logo-img me-3" 
+              />
+              <div>
+                <span className="fs-4 fw-bold text-white d-block lh-sm">Rekha Learning Centre</span>
+                <small className="text-accent-custom fw-semibold">Excellence & Trust in Education</small>
+              </div>
             </div>
-            <p className="text-light opacity-75" style={{ lineHeight: '1.8' }}>
+            <p className="text-white-50 small" style={{ lineHeight: '1.8' }}>
               Your Child’s Second Home for Learning. We are committed to academic excellence through concept clarity, personal attention, and strong moral values.
             </p>
           </Col>
           
           <Col lg={3} md={6}>
-            <h5 className="fw-bold mb-4 text-accent-custom text-uppercase tracking-wide">Quick Links</h5>
-            <div className="d-flex flex-column gap-3">
+            <h6 className="fw-bold mb-3 text-white text-uppercase tracking-wide small">Quick Links</h6>
+            <div className="d-flex flex-column gap-2">
               <a href="/#home" className="footer-link">Home</a>
+              <a href="/#about" className="footer-link">About Us</a>
               <a href="/#courses" className="footer-link">Courses Offered</a>
               <a href="/#methodology" className="footer-link">Learning Methodology</a>
               <a href="/gallery" className="footer-link">Full Event Gallery</a>
@@ -42,34 +45,34 @@ const Footer = () => {
           </Col>
 
           <Col lg={4} md={12}>
-            <h5 className="fw-bold mb-4 text-accent-custom text-uppercase tracking-wide">Contact Info</h5>
-            <div className="d-flex align-items-start mb-3">
-              <FaMapMarkerAlt className="text-accent-custom me-3 mt-1" size={18} />
-              <p className="mb-0 text-light opacity-75">
+            <h6 className="fw-bold mb-3 text-white text-uppercase tracking-wide small">Contact Info</h6>
+            <div className="d-flex align-items-start mb-2">
+              <FaMapMarkerAlt className="text-secondary-custom me-3 mt-1" size={16} />
+              <p className="mb-0 text-white-50 small">
                 New 31/2, Old No 15/2,<br/>
                 Lakshmipuram Rd, Vadapalani,<br/>
                 Tamil Nadu 600026
               </p>
             </div>
-            <div className="d-flex align-items-center mb-3">
-              <FaPhoneAlt className="text-accent-custom me-3" size={18} />
-              <p className="mb-0 text-light opacity-75">+91 8248748595</p>
+            <div className="d-flex align-items-center mb-2">
+              <FaPhoneAlt className="text-accent-custom me-3" size={16} />
+              <p className="mb-0 text-white-50 small">+91 8248748595</p>
             </div>
             <div className="d-flex align-items-center">
-              <FaEnvelope className="text-accent-custom me-3" size={18} />
-              <p className="mb-0 text-light opacity-75">rrekhamurugan@gmail.com</p>
+              <FaEnvelope className="text-secondary-custom me-3" size={16} />
+              <p className="mb-0 text-white-50 small">rrekhamurugan@gmail.com</p>
             </div>
           </Col>
 
         </Row>
 
-        <hr className="border-secondary mt-5 mb-4 opacity-50" />
+        <hr className="mt-4 mb-4" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }} />
         
-        <div className="text-center text-light opacity-50">
-          <small>&copy; {new Date().getFullYear()} Rekha Learning Center. All Rights Reserved.</small>
+        <div className="text-center text-white-50 small">
+          &copy; {new Date().getFullYear()} Rekha Learning Centre. All Rights Reserved.
         </div>
       </Container>
-    </motion.footer>
+    </footer>
   );
 };
 

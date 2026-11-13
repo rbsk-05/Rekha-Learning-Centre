@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
+import logoImg from '../assets/logo.png';
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Increase opacity when user scrolls significantly from top
-      if (window.scrollY > 50) setScrolled(true);
+      if (window.scrollY > 40) setScrolled(true);
       else setScrolled(false);
     };
     
@@ -22,18 +22,31 @@ const Navigation = () => {
       className={`navbar-glass ${scrolled ? 'scrolled' : ''}`}
     >
       <Container>
-        <Navbar.Brand href="/#home" className="fw-bold d-flex align-items-center">
-          <span style={{ fontSize: '1.5rem', color: 'var(--accent-color)' }}>Rekha Learning Center</span>
+        <Navbar.Brand href="/#home" className="d-flex align-items-center text-decoration-none">
+          <div className="brand-logo-container">
+            <img 
+              src={logoImg} 
+              alt="Rekha Learning Centre Logo" 
+              className="brand-logo-img" 
+            />
+            <div className="d-flex flex-column text-start">
+              <span className="brand-title">Rekha Learning Centre</span>
+              <span className="brand-subtitle">Excellence & Trust in Education</span>
+            </div>
+          </div>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-0 shadow-none" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }} />
+        <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-0 shadow-none" style={{ backgroundColor: 'rgba(3, 35, 91, 0.05)' }} />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto fw-medium">
-            <Nav.Link href="/#home" className="px-3">Home</Nav.Link>
-            <Nav.Link href="/#courses" className="px-3">Courses</Nav.Link>
-            <Nav.Link href="/#methodology" className="px-3">Learning Method</Nav.Link>
-            <Nav.Link href="/#gallery" className="px-3">Gallery</Nav.Link>
-            <Nav.Link href="/#testimonials" className="px-3">Testimonials</Nav.Link>
-            <Nav.Link href="/#contact" className="px-3">Contact</Nav.Link>
+          <Nav className="ms-auto fw-medium align-items-center py-2 py-lg-0">
+            <Nav.Link href="/#home">Home</Nav.Link>
+            <Nav.Link href="/#about">About</Nav.Link>
+            <Nav.Link href="/#courses">Courses</Nav.Link>
+            <Nav.Link href="/#methodology">Learning Method</Nav.Link>
+            <Nav.Link href="/#gallery">Gallery</Nav.Link>
+            <Nav.Link href="/#testimonials">Testimonials</Nav.Link>
+            <Nav.Link href="/#contact" className="ms-lg-2">
+              <span className="btn btn-custom py-2 px-3 fs-6 d-inline-block">Contact</span>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -4,43 +4,43 @@ import { FaGraduationCap, FaBook, FaPenFancy, FaFont, FaComments, FaLanguage, Fa
 import { motion } from 'framer-motion';
 
 const courses = [
-  { id: 1, title: '2nd to 10th Standard', desc: 'Comprehensive coaching for foundational learning.', icon: <FaGraduationCap size={32} /> },
-  { id: 2, title: 'All Subjects', desc: 'Expert guidance across everything in the curriculum.', icon: <FaChalkboardTeacher size={32} /> },
-  { id: 3, title: 'Metric and CBSE', desc: 'Tailored test series and syllabus coverage for both boards.', icon: <FaBook size={32} /> },
-  { id: 4, title: 'Handwriting', desc: 'Improve legibility and neatness with dedicated practice sheets.', icon: <FaPenFancy size={32} /> },
-  { id: 5, title: 'Grammar', desc: 'Master the rules of English to build a strong communication baseline.', icon: <FaFont size={32} /> },
-  { id: 6, title: 'Spoken English', desc: 'Interactive speaking sessions to build fluency and confidence.', icon: <FaComments size={32} /> },
-  { id: 7, title: 'Hindi Basics', desc: 'Learn the fundamentals of Hindi reading, writing, and speaking.', icon: <FaLanguage size={32} /> },
-  { id: 8, title: 'Entrance Coaching', desc: 'Rigorous preparation for various school entrance examinations.', icon: <FaUniversity size={32} /> },
+  { id: 1, title: '2nd to 10th Standard', desc: 'Comprehensive coaching for foundational learning.', icon: <FaGraduationCap size={28} />, color: 'var(--primary-color)' },
+  { id: 2, title: 'All Subjects', desc: 'Expert guidance across everything in the curriculum.', icon: <FaChalkboardTeacher size={28} />, color: 'var(--secondary-color)' },
+  { id: 3, title: 'Matric and CBSE', desc: 'Tailored test series and syllabus coverage for both boards.', icon: <FaBook size={28} />, color: 'var(--primary-color)' },
+  { id: 4, title: 'Handwriting', desc: 'Improve legibility and neatness with dedicated practice sheets.', icon: <FaPenFancy size={28} />, color: 'var(--leaf-green)' },
+  { id: 5, title: 'Grammar', desc: 'Master the rules of English to build a strong communication baseline.', icon: <FaFont size={28} />, color: 'var(--secondary-color)' },
+  { id: 6, title: 'Spoken English', desc: 'Interactive speaking sessions to build fluency and confidence.', icon: <FaComments size={28} />, color: 'var(--accent-color)' },
+  { id: 7, title: 'Hindi Basics', desc: 'Learn the fundamentals of Hindi reading, writing, and speaking.', icon: <FaLanguage size={28} />, color: 'var(--leaf-green)' },
+  { id: 8, title: 'Entrance Coaching', desc: 'Rigorous preparation for various school entrance examinations.', icon: <FaUniversity size={28} />, color: 'var(--secondary-color)' },
 ];
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 }
+    transition: { staggerChildren: 0.08 }
   }
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
+  hidden: { opacity: 0, y: 15 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } }
 };
 
 const Courses = () => {
   return (
-    <section id="courses" className="section-padding" style={{ backgroundColor: 'var(--primary-color)' }}>
+    <section id="courses" className="section-padding bg-white">
       <Container>
         <motion.div 
           className="text-center mb-5"
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: -15 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
         >
-          <h2 className="display-6 fw-bold text-light text-sweep-hover">Courses Offered</h2>
-          <div className="mx-auto" style={{ width: '60px', height: '4px', backgroundColor: 'var(--accent-color)' }}></div>
-          <p className="text-muted mt-3 mb-0">Customized programs tailored to your child's academic needs</p>
+          <h2 className="display-6 fw-bold text-primary-custom mb-3">Courses Offered</h2>
+          <div className="section-accent-line mx-auto mb-3"></div>
+          <p className="text-muted mb-0">Customized programs tailored to your child's academic needs</p>
         </motion.div>
 
         <motion.div
@@ -52,12 +52,20 @@ const Courses = () => {
           <Row className="g-4">
             {courses.map((course) => (
               <Col key={course.id} md={6} lg={3} as={motion.div} variants={itemVariants}>
-                <div className="d-flex flex-column align-items-center text-center p-4 hover-card h-100" style={{ backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '10px' }}>
-                  <div className="text-accent-custom mb-3">
+                <div className="d-flex flex-column align-items-center text-center p-4 hover-card h-100">
+                  <div 
+                    className="p-3 rounded-circle mb-3 d-flex align-items-center justify-content-center"
+                    style={{ 
+                      backgroundColor: 'rgba(3, 35, 91, 0.04)',
+                      color: course.color,
+                      width: '64px',
+                      height: '64px'
+                    }}
+                  >
                     {course.icon}
                   </div>
-                  <h5 className="fw-bold fs-6 mb-2 text-light">{course.title}</h5>
-                  <p className="mb-0 text-light opacity-75 small">{course.desc}</p>
+                  <h5 className="fw-bold fs-6 mb-2 text-dark">{course.title}</h5>
+                  <p className="mb-0 text-muted small">{course.desc}</p>
                 </div>
               </Col>
             ))}
