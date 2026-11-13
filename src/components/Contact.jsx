@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Card, Alert, Spinner } from 'react-bootstrap';
-import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaWhatsapp } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 
@@ -47,12 +47,18 @@ const Contact = () => {
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       console.error("EmailJS Delivery Exception:", error);
-      setStatus({ type: 'danger', message: 'Failed to send. Please try again.' });
+      const isGrantError = error?.text?.includes('Invalid grant') || error?.text?.includes('reconnect');
+      setStatus({ 
+        type: 'danger', 
+        message: isGrantError 
+          ? 'Email service token has expired on the server. Please reconnect Gmail in EmailJS, or send directly via WhatsApp below.' 
+          : 'Unable to deliver message right now. Please call or WhatsApp us directly.' 
+      });
     } finally {
       setIsSubmitting(false);
       setTimeout(() => {
         setStatus({ type: '', message: '' });
-      }, 5000);
+      }, 9000);
     }
   };
 
@@ -103,12 +109,23 @@ const Contact = () => {
                 </div>
               </div>
 
-              <a 
-                href="tel:+918248748595"
-                className="btn btn-custom w-100 d-flex align-items-center justify-content-center py-3 text-decoration-none"
-              >
-                <FaPhoneAlt size={16} className="me-2" /> Call Us Directly
-              </a>
+              <div className="d-flex flex-column gap-2 mt-auto">
+                <a 
+                  href="tel:+918248748595"
+                  className="btn btn-custom w-100 d-flex align-items-center justify-content-center py-3 text-decoration-none"
+                >
+                  <FaPhoneAlt size={16} className="me-2" /> Call Us Directly
+                </a>
+                <a 
+                  href="https://wa.me/918248748595?text=Hello%20Rekha%20Learning%20Centre,%20I%20would%20like%20to%20inquire%20about%20coaching."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-outline-light w-100 d-flex align-items-center justify-content-center py-3 text-decoration-none fw-semibold"
+                  style={{ borderRadius: '50px' }}
+                >
+                  <FaWhatsapp size={18} className="me-2 text-success" /> Chat on WhatsApp
+                </a>
+              </div>
               
             </div>
           </Col>
@@ -122,7 +139,25 @@ const Contact = () => {
               
               {status.message && (
                 <Alert variant={status.type} onClose={() => setStatus({ type: '', message: '' })} dismissible>
-                  {status.message}
+                  <div>{status.message}</div>
+                  {status.type === 'danger' && (
+                    <div className="mt-2 pt-2 border-top">
+                      <a 
+                        href={`https://wa.me/918248748595?text=${encodeURIComponent(`Hi, my name is ${formData.name || 'Parent'}. ${formData.message || 'I would like to inquire about coaching.'}`)}`}
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="btn btn-sm btn-success fw-bold me-2"
+                      >
+                        <FaWhatsapp className="me-1" /> Send via WhatsApp
+                      </a>
+                      <a 
+                        href={`mailto:rrekhamurugan@gmail.com?subject=${encodeURIComponent(`Tuition Inquiry from ${formData.name || 'Parent'}`)}&body=${encodeURIComponent(`${formData.message || ''}\n\nFrom: ${formData.name || ''} (${formData.email || ''})`)}`}
+                        className="btn btn-sm btn-outline-dark fw-bold"
+                      >
+                        <FaEnvelope className="me-1" /> Send via Email App
+                      </a>
+                    </div>
+                  )}
                 </Alert>
               )}
 
