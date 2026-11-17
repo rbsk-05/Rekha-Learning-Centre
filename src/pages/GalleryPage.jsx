@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Container, Row, Col, Badge, Modal, Button } from 'react-bootstrap';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
 import { 
   FaImages, FaUmbrellaBeach, FaRocket, FaFilm, FaChild, 
@@ -59,6 +59,40 @@ const GalleryPage = () => {
     return allMedia.filter(item => item.category === activeCategory);
   }, [allMedia, activeCategory]);
 
+  const BATCH_SIZE = 24;
+  const [visibleCount, setVisibleCount] = useState(BATCH_SIZE);
+  const loadMoreRef = useRef(null);
+
+  // Reset visibleCount whenever category switches
+  useEffect(() => {
+    setVisibleCount(BATCH_SIZE);
+  }, [activeCategory]);
+
+  // Progressive batch loading when scrolling near the bottom for instantaneous tab switches
+  useEffect(() => {
+    if (visibleCount >= filteredMedia.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisibleCount((prev) => Math.min(prev + BATCH_SIZE, filteredMedia.length));
+        }
+      },
+      { rootMargin: '350px' }
+    );
+
+    const el = loadMoreRef.current;
+    if (el) observer.observe(el);
+
+    return () => {
+      if (el) observer.unobserve(el);
+    };
+  }, [visibleCount, filteredMedia.length]);
+
+  const displayedMedia = useMemo(() => {
+    return filteredMedia.slice(0, visibleCount);
+  }, [filteredMedia, visibleCount]);
+
   // Image-only list for the Lightbox modal traversal
   const lightboxImages = useMemo(() => {
     return filteredMedia.filter(item => !item.isVideo);
@@ -94,6 +128,43 @@ const GalleryPage = () => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [lightboxIndex, prevImage, nextImage]);
+
+  // Lock body scroll while Lightbox is active
+  useEffect(() => {
+    if (lightboxIndex !== null) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [lightboxIndex]);
+
+  // Touch swipe support for mobile
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e) => {
+    const diffX = touchStartX.current - e.changedTouches[0].clientX;
+    const diffY = touchStartY.current - e.changedTouches[0].clientY;
+    
+    // Swipe horizontal if deltaX > 40px and more horizontal than vertical
+    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX > 0) {
+        nextImage(); // Swiped left -> next image
+      } else {
+        prevImage(); // Swiped right -> prev image
+      }
+    } else if (diffY < -80 && Math.abs(diffY) > Math.abs(diffX)) {
+      closeLightbox(); // Swiped down -> close
+    }
+  };
 
   // Calculate counts per category
   const counts = useMemo(() => {
@@ -208,94 +279,65 @@ const GalleryPage = () => {
                 <p className="text-muted">Select another category to view memories.</p>
               </div>
             ) : (
-              <Row className="g-4">
-                {filteredMedia.map((item, idx) => (
-                  <Col key={item.id} xs={12} sm={6} lg={4}>
+              <Row className="g-3 g-md-4">
+                {displayedMedia.map((item) => (
+                  <Col key={item.id} xs={6} md={4} lg={3}>
                     {item.isVideo ? (
                       /* Video Card */
-                      <motion.div 
-                        className="bg-white rounded-4 overflow-hidden border shadow-sm h-100 d-flex flex-column"
-                        style={{ borderColor: 'var(--border-light)' }}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.4, delay: (idx % 6) * 0.05 }}
-                      >
-                        <div className="position-relative" style={{ backgroundColor: '#000', height: '240px' }}>
-                          <video 
-                            src={item.url} 
-                            controls 
-                            playsInline 
-                            preload="metadata"
-                            className="w-100 h-100"
-                            style={{ objectFit: 'cover' }}
-                          />
-                        </div>
-                        <div className="p-3 mt-auto">
-                          <div className="d-flex align-items-center justify-content-between mb-1">
-                            <span className="badge rounded-pill bg-light text-secondary-custom small border">
-                              <FaPlayCircle className="me-1" /> Live Video
-                            </span>
-                            <small className="text-muted">Clip #{idx + 1}</small>
-                          </div>
-                          <h6 className="fw-bold text-dark mb-0 mt-2">{item.title}</h6>
-                        </div>
-                      </motion.div>
-                    ) : (
-                      /* Photo Card with Lightbox Trigger */
-                      <motion.div 
-                        className="rounded-4 overflow-hidden border shadow-sm position-relative cursor-pointer h-100"
+                      <div 
+                        className="gallery-card position-relative overflow-hidden rounded-4 bg-black border shadow-sm h-100"
                         style={{ 
                           borderColor: 'var(--border-light)', 
-                          backgroundColor: '#f8fafc',
-                          height: '280px',
-                          cursor: 'pointer'
+                          aspectRatio: '4 / 3'
                         }}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.4, delay: (idx % 6) * 0.05 }}
-                        whileHover={{ y: -5, boxShadow: '0 12px 25px rgba(3, 35, 91, 0.08)' }}
+                      >
+                        <video 
+                          src={item.url} 
+                          controls 
+                          playsInline 
+                          preload="metadata"
+                          className="w-100 h-100"
+                          style={{ objectFit: 'cover' }}
+                        />
+                      </div>
+                    ) : (
+                      /* Photo Card - Clean, Tag-Free, Smooth & Fast */
+                      <div 
+                        className="gallery-card position-relative overflow-hidden rounded-4 bg-light border shadow-sm cursor-pointer h-100"
+                        style={{ 
+                          borderColor: 'var(--border-light)', 
+                          aspectRatio: '4 / 3'
+                        }}
                         onClick={() => openLightbox(item)}
                       >
                         <img 
-                          src={item.url} 
+                          src={item.thumbUrl || item.url} 
                           alt={item.title} 
-                          className="w-100 h-100"
-                          style={{ objectFit: 'cover', transition: 'transform 0.4s ease' }}
+                          className="gallery-card-img w-100 h-100"
+                          style={{ objectFit: 'cover' }}
                           loading="lazy"
+                          decoding="async"
                         />
                         
-                        {/* Hover Overlay with Caption & Zoom Prompt */}
-                        <div 
-                          className="position-absolute top-0 start-0 w-100 h-100 p-3 d-flex flex-column justify-content-between text-white"
-                          style={{ 
-                            background: 'linear-gradient(180deg, rgba(3, 35, 91, 0.4) 0%, transparent 40%, rgba(3, 35, 91, 0.88) 100%)',
-                            opacity: 0,
-                            transition: 'opacity 0.25s ease'
-                          }}
-                          onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                          onMouseLeave={(e) => e.currentTarget.style.opacity = '0'}
-                        >
-                          <div className="d-flex justify-content-between align-items-center">
-                            <span className="badge bg-white text-dark small rounded-pill px-2 py-1 shadow-sm">
-                              {OCCASIONS_DATA.find(o => o.id === item.category)?.shortTitle || 'Tuition Life'}
-                            </span>
-                            <span className="p-2 rounded-circle bg-white text-dark d-flex align-items-center justify-content-center shadow-sm" style={{ width: '32px', height: '32px' }}>
-                              <FaExpand size={12} />
-                            </span>
-                          </div>
-
-                          <div>
-                            <h6 className="fw-bold mb-1 text-white">{item.title}</h6>
-                            <small className="text-white-50">Click to view in high definition</small>
-                          </div>
+                        {/* Subtle expand hint on hover */}
+                        <div className="gallery-card-hover-hint position-absolute bottom-0 end-0 m-2 pointer-events-none">
+                          <span 
+                            className="p-1 rounded-circle bg-white text-dark d-flex align-items-center justify-content-center shadow-sm"
+                            style={{ width: '28px', height: '28px', opacity: 0.9 }}
+                          >
+                            <FaExpand size={12} />
+                          </span>
                         </div>
-                      </motion.div>
+                      </div>
                     )}
                   </Col>
                 ))}
               </Row>
+            )}
+
+            {/* Progressive loading anchor */}
+            {visibleCount < filteredMedia.length && (
+              <div ref={loadMoreRef} style={{ height: '20px', width: '100%' }} />
             )}
 
             {/* Bottom Invitation to Enroll */}
@@ -328,100 +370,128 @@ const GalleryPage = () => {
           </Container>
         </section>
 
-        {/* Fullscreen Mesmerizing Lightbox Modal */}
-        <Modal 
-          show={lightboxIndex !== null} 
-          onHide={closeLightbox}
-          centered 
-          size="xl"
-          fullscreen="md-down"
-          contentClassName="border-0 bg-transparent shadow-none"
-        >
+        {/* Fullscreen Cinema Lightbox (No blue box, edge-to-edge viewer with Touch Swipe & PC buttons) */}
+        {lightboxIndex !== null && lightboxImages[lightboxIndex] && (
           <div 
-            className="position-relative w-100 h-100 p-2 p-md-4 rounded-4"
+            className="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column justify-content-between p-3 p-md-4"
             style={{ 
-              backgroundColor: 'rgba(2, 23, 61, 0.95)', 
+              zIndex: 10000, 
+              backgroundColor: 'rgba(0, 0, 0, 0.94)',
               backdropFilter: 'blur(16px)',
-              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.6)'
+              WebkitBackdropFilter: 'blur(16px)',
+              userSelect: 'none'
             }}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
-            {/* Lightbox Header Bar */}
-            <div className="d-flex justify-content-between align-items-center mb-3 px-2">
-              <div className="d-flex align-items-center gap-2">
-                <span className="badge rounded-pill bg-light text-dark px-3 py-2 fw-bold">
-                  {lightboxIndex !== null && (OCCASIONS_DATA.find(o => o.id === lightboxImages[lightboxIndex]?.category)?.shortTitle || 'Moment')}
-                </span>
-                <span className="text-white-50 small">
-                  {lightboxIndex !== null ? `${lightboxIndex + 1} of ${lightboxImages.length}` : ''}
-                </span>
-              </div>
+            {/* Top Bar: Counter & Close button */}
+            <div className="d-flex justify-content-between align-items-center w-100" style={{ zIndex: 10002 }}>
+              <span 
+                className="badge rounded-pill px-3 py-2 fw-bold text-white shadow-sm"
+                style={{ backgroundColor: 'rgba(255, 255, 255, 0.15)', fontSize: '0.82rem', backdropFilter: 'blur(8px)' }}
+              >
+                {lightboxIndex + 1} / {lightboxImages.length}
+              </span>
 
               <button 
                 onClick={closeLightbox}
-                className="btn btn-light rounded-circle p-2 d-flex align-items-center justify-content-center border-0 shadow-sm"
-                style={{ width: '40px', height: '40px' }}
+                className="btn btn-outline-light rounded-circle p-0 d-flex align-items-center justify-content-center border-0 shadow-sm"
+                style={{ 
+                  width: '42px', 
+                  height: '42px', 
+                  backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                  backdropFilter: 'blur(8px)',
+                  color: '#ffffff'
+                }}
                 aria-label="Close Lightbox"
               >
                 <FaTimes size={18} />
               </button>
             </div>
 
-            {/* Main Stage & Navigation Arrows */}
-            <div className="position-relative d-flex align-items-center justify-content-center" style={{ minHeight: '65vh', maxHeight: '78vh' }}>
-              
-              {/* Previous Button */}
+            {/* Central Stage: Left Button, Centered Swipeable Image, Right Button */}
+            <div 
+              className="position-relative d-flex align-items-center justify-content-center flex-grow-1 w-100 my-auto"
+              style={{ overflow: 'hidden' }}
+            >
+              {/* Previous Button (PC) */}
               <button 
-                onClick={prevImage}
-                className="btn btn-light rounded-circle position-absolute start-0 ms-2 ms-md-4 z-3 d-flex align-items-center justify-content-center shadow-lg border-0"
-                style={{ width: '48px', height: '48px', opacity: 0.9 }}
+                onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                className="lightbox-nav-btn position-absolute start-0 ms-2 ms-md-4 d-flex align-items-center justify-content-center rounded-circle border-0 shadow-lg"
+                style={{ 
+                  width: '52px', 
+                  height: '52px', 
+                  zIndex: 10002,
+                  backgroundColor: 'rgba(255, 255, 255, 0.18)',
+                  backdropFilter: 'blur(8px)',
+                  color: '#ffffff',
+                  cursor: 'pointer'
+                }}
                 aria-label="Previous Image"
               >
-                <FaChevronLeft size={18} />
+                <FaChevronLeft size={20} />
               </button>
 
-              {/* Main Image */}
-              {lightboxIndex !== null && lightboxImages[lightboxIndex] && (
-                <motion.img 
-                  key={lightboxImages[lightboxIndex].id}
+              {/* Swipeable Main Image */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={lightboxIndex}
                   initial={{ opacity: 0, scale: 0.96 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.25 }}
-                  src={lightboxImages[lightboxIndex].url}
-                  alt={lightboxImages[lightboxIndex].title}
-                  className="rounded-3 shadow-lg"
-                  style={{ 
-                    maxHeight: '72vh', 
-                    maxWidth: '100%', 
-                    objectFit: 'contain' 
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.2 }}
+                  className="d-flex align-items-center justify-content-center"
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.4}
+                  onDragEnd={(e, { offset, velocity }) => {
+                    if (offset.x < -40 || velocity.x < -300) {
+                      nextImage();
+                    } else if (offset.x > 40 || velocity.x > 300) {
+                      prevImage();
+                    }
                   }}
-                />
-              )}
+                  style={{ cursor: 'grab', touchAction: 'pan-y' }}
+                >
+                  <img 
+                    src={lightboxImages[lightboxIndex].url}
+                    alt={lightboxImages[lightboxIndex].title}
+                    className="rounded-3 shadow-2xl"
+                    style={{ 
+                      maxHeight: '78vh', 
+                      maxWidth: '88vw', 
+                      objectFit: 'contain',
+                      pointerEvents: 'auto',
+                      userSelect: 'none'
+                    }}
+                    draggable={false}
+                  />
+                </motion.div>
+              </AnimatePresence>
 
-              {/* Next Button */}
+              {/* Next Button (PC) */}
               <button 
-                onClick={nextImage}
-                className="btn btn-light rounded-circle position-absolute end-0 me-2 me-md-4 z-3 d-flex align-items-center justify-content-center shadow-lg border-0"
-                style={{ width: '48px', height: '48px', opacity: 0.9 }}
+                onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                className="lightbox-nav-btn position-absolute end-0 me-2 me-md-4 d-flex align-items-center justify-content-center rounded-circle border-0 shadow-lg"
+                style={{ 
+                  width: '52px', 
+                  height: '52px', 
+                  zIndex: 10002,
+                  backgroundColor: 'rgba(255, 255, 255, 0.18)',
+                  backdropFilter: 'blur(8px)',
+                  color: '#ffffff',
+                  cursor: 'pointer'
+                }}
                 aria-label="Next Image"
               >
-                <FaChevronRight size={18} />
+                <FaChevronRight size={20} />
               </button>
             </div>
 
-            {/* Lightbox Caption Footer */}
-            {lightboxIndex !== null && lightboxImages[lightboxIndex] && (
-              <div className="text-center mt-3 pt-2 border-top border-secondary border-opacity-25 px-3">
-                <h5 className="fw-bold text-white mb-1">
-                  {lightboxImages[lightboxIndex].title}
-                </h5>
-                <p className="text-white-50 small mb-0">
-                  Rekha Learning Centre Memory Collection • Use Left / Right arrow keys to navigate
-                </p>
-              </div>
-            )}
+
 
           </div>
-        </Modal>
+        )}
 
       </main>
 

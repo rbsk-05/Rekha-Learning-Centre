@@ -134,6 +134,11 @@ const imageModules = import.meta.glob('/src/assets/images/**/*.{png,jpg,jpeg,svg
   import: 'default'
 });
 
+const thumbModules = import.meta.glob('/src/assets/thumbnails/**/*.{png,jpg,jpeg,svg,webp,avif,PNG,JPG,JPEG}', {
+  eager: true,
+  import: 'default'
+});
+
 const videoModules = import.meta.glob('/src/assets/images/**/*.{mp4,webm,mov,MP4}', {
   eager: true,
   import: 'default'
@@ -201,9 +206,12 @@ export const getAllGalleryMedia = () => {
     const filename = path.split('/').pop();
     const category = categorizePath(path);
     const title = generateTitle(filename, category);
+    const thumbPath = path.replace('/src/assets/images/', '/src/assets/thumbnails/');
+    const thumbUrl = thumbModules[thumbPath] || url;
 
     mediaList.push({
       url,
+      thumbUrl,
       path,
       filename,
       category,
@@ -289,7 +297,7 @@ export const getOccasionCards = () => {
       tagline: occ ? occ.tagline : 'Celebrations & learning moments',
       icon: occ ? occ.icon : 'FaImages',
       count: mediaForOcc.length,
-      coverUrl: coverItem ? coverItem.url : '',
+      coverUrl: coverItem ? (coverItem.thumbUrl || coverItem.url) : '',
       badge: occ ? occ.badge : 'Memories'
     };
   }).filter(card => card.coverUrl);

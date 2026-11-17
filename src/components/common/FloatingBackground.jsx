@@ -54,44 +54,59 @@ const InteractiveDoodle = ({ item }) => {
   const smoothRotate = useSpring(mouseRotate, springConfig);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (!doodleRef.current) return;
-      
-      const rect = doodleRef.current.getBoundingClientRect();
-      
-      // Skip calculations if doodle is currently outside the viewport
-      if (rect.bottom < -100 || rect.top > window.innerHeight + 100) return;
-      
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      
-      const deltaX = e.clientX - centerX;
-      const deltaY = e.clientY - centerY;
-      const dist = Math.hypot(deltaX, deltaY);
-      
-      const interactionRadius = 130; // Radius where cursor repels / pushes the doodle
-      
-      if (dist < interactionRadius && dist > 0) {
-        // Calculate repulsion strength (pushes stronger when closer)
-        const intensity = (1 - dist / interactionRadius);
-        const maxPush = 55; // Up to 55px push
-        const pushDist = intensity * maxPush;
-        const angle = Math.atan2(deltaY, deltaX);
-        
-        // Push in opposite direction from cursor
-        mousePushX.set(-Math.cos(angle) * pushDist);
-        mousePushY.set(-Math.sin(angle) * pushDist);
-        mouseRotate.set(-Math.sin(angle) * 18);
-      } else {
-        // Smoothly return to center when mouse leaves proximity
-        mousePushX.set(0);
-        mousePushY.set(0);
-        mouseRotate.set(0);
+    let animId = null;
+    let lastEvent = null;
+
+    const onMove = (e) => {
+      // Early exit if cursor is inside center content where cards live (zero overhead while browsing cards)
+      const margin = 140;
+      if (e.clientX > margin && e.clientX < window.innerWidth - margin) {
+        if (mousePushX.get() !== 0 || mousePushY.get() !== 0) {
+          mousePushX.set(0);
+          mousePushY.set(0);
+          mouseRotate.set(0);
+        }
+        return;
+      }
+
+      lastEvent = e;
+      if (!animId) {
+        animId = requestAnimationFrame(() => {
+          if (!doodleRef.current || !lastEvent) {
+            animId = null;
+            return;
+          }
+          const rect = doodleRef.current.getBoundingClientRect();
+          if (rect.bottom >= -50 && rect.top <= window.innerHeight + 50) {
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const deltaX = lastEvent.clientX - centerX;
+            const deltaY = lastEvent.clientY - centerY;
+            const dist = Math.hypot(deltaX, deltaY);
+            const radius = 120;
+
+            if (dist < radius && dist > 0) {
+              const push = (1 - dist / radius) * 50;
+              const angle = Math.atan2(deltaY, deltaX);
+              mousePushX.set(-Math.cos(angle) * push);
+              mousePushY.set(-Math.sin(angle) * push);
+              mouseRotate.set(-Math.sin(angle) * 15);
+            } else {
+              mousePushX.set(0);
+              mousePushY.set(0);
+              mouseRotate.set(0);
+            }
+          }
+          animId = null;
+        });
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', onMove, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      if (animId) cancelAnimationFrame(animId);
+    };
   }, [mousePushX, mousePushY, mouseRotate]);
 
   return (

@@ -23,6 +23,12 @@ dist-ssr
 src/assets/images/
 src/assets/images/*
 src/assets/images/**/*
+src/assets/thumbnails/
+src/assets/thumbnails/*
+src/assets/thumbnails/**/*
+src/assets/original_photos_backup/
+src/assets/original_photos_backup/*
+src/assets/original_photos_backup/**/*
 
 # Video formats
 *.mp4

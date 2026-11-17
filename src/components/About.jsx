@@ -12,7 +12,7 @@ const About = () => {
             <h2 className="display-6 fw-bold text-primary-custom mb-3">About Us</h2>
             <div className="section-accent-line mb-4"></div>
             <p className="lead text-dark mb-4 fs-5" style={{ lineHeight: '1.7' }}>
-              With over 10 years of experience, <strong className="text-secondary-custom">Rekha Learning Centre</strong> offers comprehensive coaching for 2nd to 10th standard students covering CBSE, ICSE, and State Board syllabi. 
+              With over 11 years of experience, <strong className="text-secondary-custom">Rekha Learning Centre</strong> offers comprehensive coaching for 2nd to 10th standard students covering CBSE, ICSE, and State Board syllabi. 
             </p>
             <p className="text-muted mb-4" style={{ lineHeight: '1.8' }}>
               Our classes are conducted in a friendly, patient, and supportive environment where students can ask questions freely and learn at their own pace. We maintain a strong focus on concept clarity, consistent practice, and personal attention to ensure every child reaches their full academic potential.
