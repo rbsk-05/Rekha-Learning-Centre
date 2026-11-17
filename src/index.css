@@ -357,3 +357,34 @@ html {
     border-left: none;
   }
 }
+
+/* Subtle Floating Doodles Stacking & Layering (Scrolls naturally with page) */
+.floating-doodles-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Ensure containers and cards sit cleanly above the floating doodles */
+.container,
+.hover-card,
+.card,
+.btn-custom,
+.btn-outline-custom,
+form,
+.modal,
+.modal-content,
+footer {
+  position: relative;
+  z-index: 2;
+}
+
+.hover-card, 
+.card {
+  background-color: var(--bg-card) !important;
+}

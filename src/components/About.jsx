@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FaGraduationCap, FaChalkboardTeacher, FaRegSmileBeam } from 'react-icons/fa';
+import aboutImg from '../assets/images/b-roll/a5.jpg';
 
 const About = () => {
   return (
@@ -45,7 +46,7 @@ const About = () => {
           <Col lg={6}>
             <div className="position-relative ps-lg-4">
               <img 
-                src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                src={aboutImg} 
                 alt="Students learning at Rekha Learning Centre" 
                 className="img-fluid rounded-4 shadow-sm"
                 style={{ objectFit: 'cover', height: '420px', width: '100%', border: '1px solid var(--border-light)' }}
@@ -56,7 +57,8 @@ const About = () => {
                   bottom: '-25px', 
                   left: '10px', 
                   borderLeft: '4px solid var(--secondary-color)',
-                  maxWidth: '220px'
+                  maxWidth: '220px',
+                  zIndex: 3
                 }}
               >
                 <div className="display-5 fw-bold text-primary-custom mb-0">100%</div>

@@ -64,8 +64,12 @@ const Courses = () => {
                   >
                     {course.icon}
                   </div>
-                  <h5 className="fw-bold fs-6 mb-2 text-dark d-flex align-items-center justify-content-center" style={{ minHeight: '2.6rem' }}>{course.title}</h5>
-                  <p className="mb-0 text-muted small flex-grow-1">{course.desc}</p>
+                  <h4 className="fw-bold mb-2 text-dark d-flex align-items-center justify-content-center text-center" style={{ fontSize: '1.18rem', minHeight: '3.1rem', letterSpacing: '-0.2px' }}>
+                    {course.title}
+                  </h4>
+                  <p className="mb-0 text-muted flex-grow-1 text-center" style={{ fontSize: '0.92rem', lineHeight: '1.6' }}>
+                    {course.desc}
+                  </p>
                 </div>
               </Col>
             ))}

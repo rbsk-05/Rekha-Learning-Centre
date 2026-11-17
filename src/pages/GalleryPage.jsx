@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Container, Row, Col, Badge, Modal, Button } from 'react-bootstrap';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
 import { 
   FaImages, FaUmbrellaBeach, FaRocket, FaFilm, FaChild, 
   FaGift, FaHeart, FaUtensils, FaShoppingBag, FaBookOpen, 
   FaPlayCircle, FaArrowLeft, FaTimes, FaChevronLeft, FaChevronRight,
-  FaCheckCircle, FaSearch, FaExpand
+  FaSearch, FaExpand
 } from 'react-icons/fa';
 
 import Navigation from '../components/Navigation';
@@ -64,11 +64,6 @@ const GalleryPage = () => {
     return filteredMedia.filter(item => !item.isVideo);
   }, [filteredMedia]);
 
-  // Currently active occasion story metadata
-  const currentOccasion = useMemo(() => {
-    return OCCASIONS_DATA.find(occ => occ.id === activeCategory) || OCCASIONS_DATA[0];
-  }, [activeCategory]);
-
   // Lightbox handlers
   const openLightbox = (imageItem) => {
     const idx = lightboxImages.findIndex(img => img.id === imageItem.id);
@@ -113,7 +108,7 @@ const GalleryPage = () => {
     <>
       <Navigation />
       
-      <main style={{ paddingTop: '110px', backgroundColor: '#ffffff', minHeight: '100vh', position: 'relative' }}>
+      <main style={{ paddingTop: '110px', backgroundColor: '#ffffff', minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
         <FloatingBackground />
 
         {/* Storytelling Header */}
@@ -199,72 +194,6 @@ const GalleryPage = () => {
                 );
               })}
             </div>
-          </Container>
-        </section>
-
-        {/* Narrative Spotlight Banner for Active Occasion */}
-        <section className="py-5" style={{ backgroundColor: '#f8fafc' }}>
-          <Container>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentOccasion.id}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.35 }}
-                className="bg-white p-4 p-md-5 rounded-4 border shadow-sm"
-                style={{ borderColor: 'var(--border-light)' }}
-              >
-                <Row className="align-items-center g-4">
-                  <Col lg={8}>
-                    <div className="d-flex align-items-center gap-2 mb-3">
-                      <span className="p-2 rounded-circle bg-light text-secondary-custom d-flex align-items-center justify-content-center" style={{ width: '38px', height: '38px' }}>
-                        {getOccasionIcon(currentOccasion.icon, 20)}
-                      </span>
-                      <span className="fw-bold text-uppercase small text-secondary-custom tracking-wide">
-                        {currentOccasion.badge}
-                      </span>
-                    </div>
-
-                    <h2 className="display-6 fw-bold text-primary-custom mb-3">
-                      {currentOccasion.title}
-                    </h2>
-                    
-                    <h5 className="fw-medium text-dark mb-3 opacity-90" style={{ lineHeight: '1.5' }}>
-                      "{currentOccasion.tagline}"
-                    </h5>
-
-                    <p className="text-muted mb-4 fs-6" style={{ lineHeight: '1.8' }}>
-                      {currentOccasion.story}
-                    </p>
-
-                    <div className="d-flex flex-wrap gap-2">
-                      {currentOccasion.highlights.map((h, i) => (
-                        <span 
-                          key={i} 
-                          className="px-3 py-1 rounded-pill small fw-semibold d-inline-flex align-items-center gap-1 bg-light border"
-                          style={{ color: 'var(--primary-color)', borderColor: 'var(--border-light)' }}
-                        >
-                          <FaCheckCircle className="text-green-custom" size={12} /> {h}
-                        </span>
-                      ))}
-                    </div>
-                  </Col>
-
-                  <Col lg={4} className="text-center border-start-lg ps-lg-4 d-none d-lg-block">
-                    <div className="p-4 rounded-4" style={{ backgroundColor: '#f8fafc', border: '1px dashed var(--border-light)' }}>
-                      <div className="display-4 fw-bold text-secondary-custom mb-1">
-                        {counts[currentOccasion.id] || filteredMedia.length}
-                      </div>
-                      <div className="text-dark fw-bold mb-2">Captured Moments</div>
-                      <p className="small text-muted mb-0">
-                        Every photograph tells a story of care, genuine mentorship, and memorable growth.
-                      </p>
-                    </div>
-                  </Col>
-                </Row>
-              </motion.div>
-            </AnimatePresence>
           </Container>
         </section>
 

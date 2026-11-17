@@ -64,8 +64,12 @@ const LearningMethod = () => {
                   >
                     {feature.icon}
                   </div>
-                  <h5 className="fw-bold fs-6 mb-2 text-dark">{feature.title}</h5>
-                  <p className="mb-0 text-muted small">{feature.text}</p>
+                  <h4 className="fw-bold mb-2 text-dark d-flex align-items-center justify-content-center text-center" style={{ fontSize: '1.18rem', minHeight: '3.1rem', letterSpacing: '-0.2px' }}>
+                    {feature.title}
+                  </h4>
+                  <p className="mb-0 text-muted flex-grow-1 text-center" style={{ fontSize: '0.92rem', lineHeight: '1.6' }}>
+                    {feature.text}
+                  </p>
                 </div>
               </Col>
             ))}
