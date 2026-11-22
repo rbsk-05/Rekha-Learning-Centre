@@ -9,8 +9,8 @@ const About = () => {
       <Container>
         <Row className="align-items-center">
           <Col lg={6} className="mb-4 mb-lg-0">
-            <h2 className="display-6 fw-bold text-primary-custom mb-3">About Us</h2>
-            <div className="section-accent-line mb-4"></div>
+            <h2 className="display-6 fw-bold text-primary-custom mb-3 text-center text-lg-start">About Us</h2>
+            <div className="section-accent-line mb-4 mx-auto ms-lg-0 me-lg-auto"></div>
             <p className="lead text-dark mb-4 fs-5" style={{ lineHeight: '1.7' }}>
               With over 11 years of experience, <strong className="text-secondary-custom">Rekha Learning Centre</strong> offers comprehensive coaching for 2nd to 10th standard students covering CBSE, ICSE, and State Board syllabi. 
             </p>
