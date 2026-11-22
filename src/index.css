@@ -99,6 +99,12 @@ html {
   transition: all 0.3s ease-in-out;
 }
 
+.navbar-glass .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .navbar-glass.scrolled {
   background: rgba(255, 255, 255, 0.98) !important;
   box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);
@@ -137,6 +143,69 @@ html {
   letter-spacing: 0.6px;
   text-transform: uppercase;
   font-weight: 700;
+}
+
+@media (max-width: 575.98px) {
+  .navbar-glass {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .navbar-glass .container {
+    flex-wrap: nowrap !important;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .navbar-brand {
+    margin-right: 6px !important;
+    padding: 0 !important;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+
+  .brand-logo-container {
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .brand-logo-img {
+    height: 36px;
+    flex-shrink: 0;
+  }
+
+  .brand-title {
+    font-size: 1.05rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .brand-subtitle {
+    font-size: 0.58rem;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+  }
+
+  .navbar-toggler {
+    padding: 4px 8px !important;
+    font-size: 0.95rem !important;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand-logo-img {
+    height: 32px;
+  }
+
+  .brand-title {
+    font-size: 0.92rem;
+  }
+
+  .brand-subtitle {
+    font-size: 0.52rem;
+  }
 }
 
 .nav-link {
@@ -229,7 +298,7 @@ html {
   min-height: 100dvh;
   padding-top: 80px; /* Accounts for fixed navbar */
   padding-bottom: 24px;
-  overflow: hidden;
+  overflow-x: hidden;
   background: #ffffff; /* Seamless pure white matching transparent portrait */
   display: flex;
   flex-direction: column;
@@ -239,12 +308,13 @@ html {
   position: relative;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991.98px) {
   .hero-section {
     min-height: 100vh;
     min-height: 100dvh;
-    padding-top: 72px;
+    padding-top: 76px;
     padding-bottom: 24px;
+    justify-content: space-evenly;
   }
 
   /* Lift swastik dot on mobile to prevent any overlap with the taller 'i' stem in mobile system fonts (Android Roboto / iOS SF Pro) */
@@ -254,8 +324,47 @@ html {
 }
 
 @media (max-width: 575.98px) {
+  .hero-section {
+    padding-top: 70px;
+    padding-bottom: 16px;
+    justify-content: space-evenly;
+  }
+
   .hero-title {
-    font-size: 2.2rem;
+    font-size: clamp(1.75rem, 8vw, 2.2rem) !important;
+    word-break: break-word;
+    line-height: 1.2 !important;
+  }
+
+  .hero-section .text-secondary-custom {
+    font-size: 1.05rem !important;
+  }
+
+  .hero-section .btn-custom, 
+  .hero-section .btn-outline-custom {
+    padding: 0.65rem 1.45rem !important;
+    font-size: 0.92rem !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-section {
+    padding-top: 64px;
+    padding-bottom: 12px;
+  }
+
+  .hero-title {
+    font-size: 1.6rem !important;
+  }
+
+  .hero-section .text-secondary-custom {
+    font-size: 0.92rem !important;
+  }
+
+  .hero-section .btn-custom, 
+  .hero-section .btn-outline-custom {
+    padding: 0.55rem 1.25rem !important;
+    font-size: 0.85rem !important;
   }
 }
 
@@ -401,6 +510,11 @@ html {
 }
 
 /* Mobile Ambassador Styles */
+.hero-ambassador-mobile-wrap {
+  margin-top: clamp(10px, 2.2vh, 22px);
+  padding-top: 2px;
+}
+
 .ambassador-mobile-frame {
   display: inline-flex;
   flex-direction: column;
@@ -411,9 +525,9 @@ html {
 
 .ambassador-mentor-img-mobile {
   height: auto;
-  max-height: 290px;
+  max-height: clamp(170px, 28vh, 260px);
   width: auto;
-  max-width: 250px;
+  max-width: 220px;
   object-fit: contain;
   -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 15px), transparent 100%);
   mask-image: linear-gradient(to bottom, black calc(100% - 15px), transparent 100%);
@@ -421,19 +535,38 @@ html {
 
 .ambassador-badge-mobile {
   width: calc(100% + 24px);
-  min-width: 210px;
-  max-width: 280px;
-  margin-top: -24px;
+  min-width: 190px;
+  max-width: 250px;
+  margin-top: -22px;
   margin-bottom: 0;
-  padding: 8px 18px;
+  padding: 7px 16px;
   justify-content: center;
 }
 
 .ambassador-badge-mobile .ambassador-badge-text {
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
-  font-size: 0.8rem;
-  letter-spacing: 2px;
+  font-size: 0.74rem;
+  letter-spacing: 1.8px;
+}
+
+@media (max-width: 380px) {
+  .ambassador-mentor-img-mobile {
+    max-height: clamp(150px, 25vh, 200px);
+    max-width: 180px;
+  }
+
+  .ambassador-badge-mobile {
+    min-width: 170px;
+    max-width: 210px;
+    margin-top: -18px;
+    padding: 6px 12px;
+  }
+
+  .ambassador-badge-mobile .ambassador-badge-text {
+    font-size: 0.68rem;
+    letter-spacing: 1.4px;
+  }
 }
 
 @media (max-width: 1200px) and (min-width: 992px) {

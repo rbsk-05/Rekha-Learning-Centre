@@ -128,6 +128,14 @@ const CATEGORY_PRIORITY = {
   videos: 10
 };
 
+// Preferred custom cover thumbnails specified by user
+export const PREFERRED_COVERS = {
+  planetarium: 'o16-birla.jpg',
+  gifts: 'g7.jpg',
+  movie: 'o8-movie.jpg',
+  beach: 'o28.jpg'
+};
+
 // Dynamic imports across all image and video formats
 const imageModules = import.meta.glob('/src/assets/images/**/*.{png,jpg,jpeg,svg,webp,avif,PNG,JPG,JPEG}', {
   eager: true,
@@ -240,7 +248,15 @@ export const getAllGalleryMedia = () => {
   mediaList.sort((a, b) => {
     const prioA = CATEGORY_PRIORITY[a.category] ?? 99;
     const prioB = CATEGORY_PRIORITY[b.category] ?? 99;
-    return prioA - prioB;
+    if (prioA !== prioB) return prioA - prioB;
+
+    const prefA = PREFERRED_COVERS[a.category];
+    const isPrefA = prefA && a.filename.toLowerCase() === prefA.toLowerCase();
+    const isPrefB = prefA && b.filename.toLowerCase() === prefA.toLowerCase();
+    if (isPrefA && !isPrefB) return -1;
+    if (!isPrefA && isPrefB) return 1;
+
+    return 0;
   });
 
   // Assign clean sequential IDs
@@ -255,7 +271,14 @@ export const getHomeGalleryImages = () => {
   const allMedia = getAllGalleryMedia().filter(m => !m.isVideo);
 
   // Pick diverse high-impact highlights across different occasions
-  const findInCategory = (cat) => allMedia.find(m => m.category === cat)?.url;
+  const findInCategory = (cat) => {
+    const pref = PREFERRED_COVERS[cat];
+    if (pref) {
+      const match = allMedia.find(m => m.category === cat && m.filename.toLowerCase() === pref.toLowerCase());
+      if (match) return match.url;
+    }
+    return allMedia.find(m => m.category === cat)?.url;
+  };
 
   const picks = [
     { id: 1, url: findInCategory('beach') || allMedia[0]?.url, caption: 'Beach Outing & Outdoor Bonding' },
@@ -288,7 +311,11 @@ export const getOccasionCards = () => {
   return featuredIds.map(id => {
     const occ = OCCASIONS_DATA.find(o => o.id === id);
     const mediaForOcc = allMedia.filter(m => m.category === id && !m.isVideo);
-    const coverItem = mediaForOcc[0] || allMedia.find(m => m.category === id);
+    const prefFilename = PREFERRED_COVERS[id];
+    const preferredItem = prefFilename 
+      ? mediaForOcc.find(m => m.filename.toLowerCase() === prefFilename.toLowerCase())
+      : null;
+    const coverItem = preferredItem || mediaForOcc[0] || allMedia.find(m => m.category === id);
 
     return {
       id,

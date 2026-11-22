@@ -93,7 +93,7 @@ const Hero = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className="d-lg-none mt-4 pt-2 d-flex flex-column align-items-center"
+        className="hero-ambassador-mobile-wrap d-lg-none d-flex flex-column align-items-center"
         style={{ zIndex: 3 }}
       >
         <div className="ambassador-mobile-frame position-relative">
