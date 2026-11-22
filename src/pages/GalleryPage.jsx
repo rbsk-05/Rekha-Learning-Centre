@@ -357,10 +357,10 @@ const GalleryPage = () => {
                   Join Rekha Learning Centre for coaching from 2nd to 10th standard (CBSE, ICSE & State Board). Give your child academic strength, moral grounding, and joyful memories.
                 </p>
                 <div className="d-flex justify-content-center gap-3 flex-wrap">
-                  <Button href="/#contact" className="btn-custom">
+                  <Button href={`${import.meta.env.BASE_URL}#contact`} className="btn-custom">
                     Enroll Today
                   </Button>
-                  <Button href="/#courses" className="btn-outline-custom">
+                  <Button href={`${import.meta.env.BASE_URL}#courses`} className="btn-outline-custom">
                     Browse Courses Offered
                   </Button>
                 </div>

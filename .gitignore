@@ -19,24 +19,10 @@ dist-ssr
 .env.*.local
 *.env
 
-# Asset Images & Media (Private event/student photos & large media not needed in public repo)
-src/assets/images/
-src/assets/images/*
-src/assets/images/**/*
-src/assets/thumbnails/
-src/assets/thumbnails/*
-src/assets/thumbnails/**/*
+# Local Raw Originals Backup (not needed in public repo)
 src/assets/original_photos_backup/
 src/assets/original_photos_backup/*
 src/assets/original_photos_backup/**/*
-
-# Video formats
-*.mp4
-*.mov
-*.avi
-*.wmv
-*.mkv
-*.webm
 
 # OS files
 .DS_Store

@@ -57,13 +57,13 @@ const Hero = () => {
               className="d-flex gap-3 justify-content-center flex-wrap mt-2"
             >
               <Button 
-                href="/#contact" 
+                href="#contact" 
                 className="btn-custom"
               >
                 Enroll Now
               </Button>
               <Button 
-                href="/#courses" 
+                href="#courses" 
                 className="btn-outline-custom"
               >
                 Explore Courses

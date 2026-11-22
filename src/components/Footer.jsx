@@ -35,12 +35,12 @@ const Footer = () => {
           <Col lg={3} md={6}>
             <h6 className="fw-bold mb-3 text-white text-uppercase tracking-wide small">Quick Links</h6>
             <div className="d-flex flex-column gap-2">
-              <a href="/#home" className="footer-link">Home</a>
-              <a href="/#about" className="footer-link">About Us</a>
-              <a href="/#courses" className="footer-link">Courses Offered</a>
-              <a href="/#methodology" className="footer-link">Learning Methodology</a>
-              <a href="/gallery" className="footer-link">Full Event Gallery</a>
-              <a href="/#contact" className="footer-link">Contact Us</a>
+              <a href={`${import.meta.env.BASE_URL}#home`} className="footer-link">Home</a>
+              <a href={`${import.meta.env.BASE_URL}#about`} className="footer-link">About Us</a>
+              <a href={`${import.meta.env.BASE_URL}#courses`} className="footer-link">Courses Offered</a>
+              <a href={`${import.meta.env.BASE_URL}#methodology`} className="footer-link">Learning Methodology</a>
+              <a href={`${import.meta.env.BASE_URL}gallery`} className="footer-link">Full Event Gallery</a>
+              <a href={`${import.meta.env.BASE_URL}#contact`} className="footer-link">Contact Us</a>
             </div>
           </Col>
 

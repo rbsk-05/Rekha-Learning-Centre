@@ -22,7 +22,7 @@ const Navigation = () => {
       className={`navbar-glass ${scrolled ? 'scrolled' : ''}`}
     >
       <Container>
-        <Navbar.Brand href="/#home" className="d-flex align-items-center text-decoration-none">
+        <Navbar.Brand href={`${import.meta.env.BASE_URL}#home`} className="d-flex align-items-center text-decoration-none">
           <div className="brand-logo-container">
             <img 
               src={logoImg} 
@@ -38,12 +38,12 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-0 shadow-none" style={{ backgroundColor: 'rgba(3, 35, 91, 0.05)' }} />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto fw-medium align-items-center py-2 py-lg-0">
-            <Nav.Link href="/#home">Home</Nav.Link>
-            <Nav.Link href="/#about">About</Nav.Link>
-            <Nav.Link href="/#courses">Courses</Nav.Link>
-            <Nav.Link href="/#methodology">Learning Method</Nav.Link>
-            <Nav.Link href="/#gallery">Gallery</Nav.Link>
-            <Nav.Link href="/#contact" className="ms-lg-2">
+            <Nav.Link href={`${import.meta.env.BASE_URL}#home`}>Home</Nav.Link>
+            <Nav.Link href={`${import.meta.env.BASE_URL}#about`}>About</Nav.Link>
+            <Nav.Link href={`${import.meta.env.BASE_URL}#courses`}>Courses</Nav.Link>
+            <Nav.Link href={`${import.meta.env.BASE_URL}#methodology`}>Learning Method</Nav.Link>
+            <Nav.Link href={`${import.meta.env.BASE_URL}#gallery`}>Gallery</Nav.Link>
+            <Nav.Link href={`${import.meta.env.BASE_URL}#contact`} className="ms-lg-2">
               <span className="btn btn-custom py-2 px-3 fs-6 d-inline-block">Contact</span>
             </Nav.Link>
           </Nav>
