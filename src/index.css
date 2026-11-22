@@ -223,6 +223,42 @@ html {
   border-color: rgba(174, 5, 88, 0.3) !important;
 }
 
+/* Hero Section - Full Viewport Display with Exact Vertical Centering */
+.hero-section {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding-top: 80px; /* Accounts for fixed navbar */
+  padding-bottom: 24px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #f8fafd 0%, #ffffff 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding-top: 72px;
+    padding-bottom: 24px;
+  }
+
+  /* Lift swastik dot on mobile to prevent any overlap with the taller 'i' stem in mobile system fonts (Android Roboto / iOS SF Pro) */
+  .swastik-dot-img {
+    bottom: 0.82em;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
+}
+
 /* Hero Section Elements */
 .hero-logo-wrapper {
   display: inline-block;

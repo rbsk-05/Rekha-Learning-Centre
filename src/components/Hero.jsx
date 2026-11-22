@@ -7,14 +7,7 @@ const Hero = () => {
   return (
     <section 
       id="home" 
-      className="d-flex flex-column justify-content-center text-center position-relative" 
-      style={{ 
-        minHeight: '85vh', 
-        paddingTop: '140px', 
-        paddingBottom: '80px', 
-        overflow: 'hidden',
-        background: 'linear-gradient(180deg, #f8fafd 0%, #ffffff 100%)'
-      }}
+      className="hero-section d-flex flex-column justify-content-center align-items-center text-center position-relative"
     >
       <Container style={{ zIndex: 1, position: 'relative' }}>
         <Row className="justify-content-center">
