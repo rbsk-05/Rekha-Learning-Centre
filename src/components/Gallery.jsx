@@ -55,7 +55,7 @@ const Gallery = () => {
           <h2 className="display-6 fw-bold text-primary-custom mb-3">Celebrations & Life at Our Centre</h2>
           <div className="section-accent-line mx-auto mb-3"></div>
           <p className="text-muted mb-0 fs-6 mx-auto" style={{ maxWidth: '680px' }}>
-            A glimpse into the joy, milestones, and expeditions that make childhood at Rekha Learning Centre memorable. Click any card to explore full moments in detail.
+            A glimpse into the joy, milestones, and expeditions that make childhood at Rekha Learning Centre memorable.
           </p>
         </motion.div>
 
@@ -88,6 +88,23 @@ const Gallery = () => {
                         style={{ objectFit: 'cover', transition: 'transform 0.4s ease' }}
                         loading="lazy"
                       />
+
+                      {/* Subtle photo indicator pill */}
+                      <div className="position-absolute top-0 end-0 m-2">
+                        <span 
+                          className="badge rounded-pill px-2 py-1 d-flex align-items-center justify-content-center"
+                          style={{ 
+                            backgroundColor: 'rgba(0, 0, 0, 0.45)', 
+                            backdropFilter: 'blur(6px)',
+                            color: '#ffffff',
+                            width: '28px',
+                            height: '28px'
+                          }}
+                          title="View Album"
+                        >
+                          <FaImages size={12} />
+                        </span>
+                      </div>
                       
                       {/* Subtle Dark Gradient Overlay at Bottom */}
                       <div 
@@ -99,36 +116,43 @@ const Gallery = () => {
                     {/* Card Content Body */}
                     <div className="p-3 p-md-4 d-flex flex-column flex-grow-1">
                       
-                      <div className="d-flex align-items-center gap-2 mb-2">
+                      {/* Top Row: Occasion Logo/Icon, Main Title & Arrow Indicator */}
+                      <div className="d-flex align-items-center justify-content-between mb-2">
+                        <div className="d-flex align-items-center gap-2">
+                          <span 
+                            className="p-2 rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                            style={{ 
+                              backgroundColor: 'rgba(174, 5, 88, 0.08)', 
+                              color: 'var(--secondary-color)',
+                              width: '32px',
+                              height: '32px'
+                            }}
+                          >
+                            {getOccasionIcon(card.icon, 14)}
+                          </span>
+                          <h5 className="fw-bold text-dark mb-0 fs-6">
+                            {card.title}
+                          </h5>
+                        </div>
+
+                        {/* Inline compact arrow indicator */}
                         <span 
-                          className="p-2 rounded-circle d-flex align-items-center justify-content-center"
-                          style={{ 
-                            backgroundColor: 'rgba(174, 5, 88, 0.08)', 
-                            color: 'var(--secondary-color)',
-                            width: '32px',
-                            height: '32px'
-                          }}
+                          className="gallery-card-arrow-btn rounded-circle d-flex align-items-center justify-content-center shadow-sm"
+                          aria-label={`View ${card.title} memories`}
                         >
-                          {getOccasionIcon(card.icon, 14)}
-                        </span>
-                        <span className="small text-uppercase fw-bold text-secondary-custom tracking-wide" style={{ fontSize: '0.72rem' }}>
-                          {card.badge}
+                          <FaArrowRight size={11} />
                         </span>
                       </div>
 
-                      <h5 className="fw-bold text-dark mb-2 fs-6">
-                        {card.title}
-                      </h5>
+                      {/* Sub-text: Category Badge */}
+                      <div className="small text-uppercase fw-bold text-secondary-custom tracking-wide mb-2" style={{ fontSize: '0.72rem' }}>
+                        {card.badge}
+                      </div>
 
-                      <p className="text-muted small mb-3 flex-grow-1" style={{ lineHeight: '1.6' }}>
+                      {/* Description / Tagline */}
+                      <p className="text-muted small mb-0 flex-grow-1" style={{ lineHeight: '1.5' }}>
                         {card.tagline}
                       </p>
-
-                      {/* Action Link to Traverse into Gallery Page */}
-                      <div className="pt-2 border-top d-flex align-items-center justify-content-between text-secondary-custom fw-semibold small mt-auto">
-                        <span>Explore Photos</span>
-                        <FaArrowRight size={12} />
-                      </div>
 
                     </div>
                   </motion.div>
@@ -142,12 +166,9 @@ const Gallery = () => {
         <div className="text-center mt-5 pt-3">
           <Link to="/gallery" style={{ textDecoration: 'none' }}>
             <button className="btn btn-custom px-5 py-3 rounded-pill fw-bold shadow-sm">
-              View Complete Gallery Collection <FaArrowRight className="ms-2" size={13} />
+              View Memories <FaArrowRight className="ms-2" size={13} />
             </button>
           </Link>
-          <div className="mt-2 text-muted small">
-            Browse all science trips, birthday celebrations, beach games, awards, and video reels
-          </div>
         </div>
 
       </Container>

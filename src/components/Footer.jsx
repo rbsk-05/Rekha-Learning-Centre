@@ -55,7 +55,7 @@ const Footer = () => {
               </p>
             </div>
             <div className="d-flex align-items-center mb-2">
-              <FaPhoneAlt className="text-accent-custom me-3" size={16} />
+              <FaPhoneAlt className="text-secondary-custom me-3" size={16} />
               <p className="mb-0 text-white-50 small">+91 8248748595</p>
             </div>
             <div className="d-flex align-items-center">

@@ -42,7 +42,7 @@ const Navigation = () => {
             <Nav.Link href={`${import.meta.env.BASE_URL}#about`}>About</Nav.Link>
             <Nav.Link href={`${import.meta.env.BASE_URL}#courses`}>Courses</Nav.Link>
             <Nav.Link href={`${import.meta.env.BASE_URL}#methodology`}>Learning Method</Nav.Link>
-            <Nav.Link href={`${import.meta.env.BASE_URL}#gallery`}>Gallery</Nav.Link>
+            <Nav.Link href={`${import.meta.env.BASE_URL}#gallery`}>Memories</Nav.Link>
             <Nav.Link href={`${import.meta.env.BASE_URL}#contact`} className="ms-lg-2">
               <span className="btn btn-custom py-2 px-3 fs-6 d-inline-block">Contact</span>
             </Nav.Link>

@@ -391,6 +391,20 @@ html {
   transform: scale(0.95);
 }
 
+.gallery-card-arrow-btn {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  background-color: #f1f5f9;
+  color: var(--primary-color);
+  transition: all 0.25s ease;
+}
+.hover-card:hover .gallery-card-arrow-btn {
+  background-color: var(--secondary-color);
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
