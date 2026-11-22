@@ -39,7 +39,7 @@ const Footer = () => {
               <a href={`${import.meta.env.BASE_URL}#about`} className="footer-link">About Us</a>
               <a href={`${import.meta.env.BASE_URL}#courses`} className="footer-link">Courses Offered</a>
               <a href={`${import.meta.env.BASE_URL}#methodology`} className="footer-link">Learning Methodology</a>
-              <a href={`${import.meta.env.BASE_URL}gallery`} className="footer-link">Full Event Gallery</a>
+              <a href={`${import.meta.env.BASE_URL}#gallery`} className="footer-link">Memories</a>
               <a href={`${import.meta.env.BASE_URL}#contact`} className="footer-link">Contact Us</a>
             </div>
           </Col>
