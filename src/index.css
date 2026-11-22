@@ -230,7 +230,7 @@ html {
   padding-top: 80px; /* Accounts for fixed navbar */
   padding-bottom: 24px;
   overflow: hidden;
-  background: linear-gradient(180deg, #f8fafd 0%, #ffffff 100%);
+  background: #ffffff; /* Seamless pure white matching transparent portrait */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -318,6 +318,132 @@ html {
 
 .swastik-i-container:hover .swastik-dot-img {
   transform: translateX(-50%) translateY(-2px) scale(1.08);
+}
+
+/* Brand Ambassador Poster Style on Right Side of Hero */
+.hero-ambassador-poster {
+  position: absolute;
+  right: 4vw;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  pointer-events: none;
+}
+
+.ambassador-frame {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.ambassador-mentor-img {
+  height: auto;
+  max-height: 70vh;
+  max-width: 380px;
+  width: auto;
+  object-fit: contain;
+  object-position: bottom right;
+  pointer-events: auto;
+  transition: transform 0.35s ease;
+  display: block;
+  -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 18px), transparent 100%);
+  mask-image: linear-gradient(to bottom, black calc(100% - 18px), transparent 100%);
+}
+
+.ambassador-mentor-img:hover {
+  transform: translateY(-4px) scale(1.01);
+}
+
+/* Cool Designer Label: "Founder & Mentor" - Prolonged to fully cover and shield the cropped bottom edge */
+.hero-ambassador-badge {
+  position: relative;
+  margin-top: -32px;
+  margin-bottom: 20px;
+  width: calc(100% + 32px);
+  min-width: 290px;
+  max-width: 420px;
+  background: rgba(3, 35, 91, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 10px 25px -4px rgba(3, 35, 91, 0.28), 0 0 14px rgba(174, 5, 88, 0.22);
+  padding: 10px 28px;
+  border-radius: 50px;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+  z-index: 5;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-ambassador-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(3, 35, 91, 0.35), 0 0 16px rgba(174, 5, 88, 0.35);
+  border-color: rgba(174, 5, 88, 0.5);
+}
+
+.ambassador-badge-text {
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 0.88rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin: 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile Ambassador Styles */
+.ambassador-mobile-frame {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.ambassador-mentor-img-mobile {
+  height: auto;
+  max-height: 290px;
+  width: auto;
+  max-width: 250px;
+  object-fit: contain;
+  -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 15px), transparent 100%);
+  mask-image: linear-gradient(to bottom, black calc(100% - 15px), transparent 100%);
+}
+
+.ambassador-badge-mobile {
+  width: calc(100% + 24px);
+  min-width: 210px;
+  max-width: 280px;
+  margin-top: -24px;
+  margin-bottom: 0;
+  padding: 8px 18px;
+  justify-content: center;
+}
+
+.ambassador-badge-mobile .ambassador-badge-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 1200px) and (min-width: 992px) {
+  .hero-ambassador-poster {
+    right: 2vw;
+  }
+  .ambassador-mentor-img {
+    max-height: 62vh;
+    max-width: 320px;
+  }
 }
 
 /* Footer Minimalist Styling */

@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import swastikImg from '../assets/swastik.png';
+import mentorImg from '../assets/mentor_v2_clean.png';
 
 const Hero = () => {
   return (
@@ -9,11 +10,12 @@ const Hero = () => {
       id="home" 
       className="hero-section d-flex flex-column justify-content-center align-items-center text-center position-relative"
     >
-      <Container style={{ zIndex: 1, position: 'relative' }}>
+      {/* Centered Hero Content / Branding */}
+      <Container style={{ zIndex: 3, position: 'relative' }}>
         <Row className="justify-content-center">
-          <Col md={10} lg={8} className="d-flex flex-column align-items-center">
+          <Col xs={12} md={10} lg={8} xl={7} className="d-flex flex-column align-items-center text-center">
 
-            {/* Hero Main Heading: Singular Deep Royal Navy, dotless i, and crisp clean swastik dot */}
+            {/* Hero Main Heading: Singular Deep Royal Navy, dotless i, and crisp clean red swastik dot */}
             <motion.h1 
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -66,6 +68,45 @@ const Hero = () => {
           </Col>
         </Row>
       </Container>
+
+      {/* Brand Ambassador Poster Element - Fixed Right Side on Desktop */}
+      <motion.div 
+        initial={{ opacity: 0, x: 40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+        className="hero-ambassador-poster d-none d-lg-flex"
+      >
+        <div className="ambassador-frame">
+          <img 
+            src={mentorImg} 
+            alt="Founder & Mentor" 
+            className="ambassador-mentor-img" 
+          />
+          <div className="hero-ambassador-badge">
+            <span className="ambassador-badge-text">Founder & Mentor</span>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Mobile Ambassador Display - Seamlessly placed below CTAs on phones & tablets */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="d-lg-none mt-4 pt-2 d-flex flex-column align-items-center"
+        style={{ zIndex: 3 }}
+      >
+        <div className="ambassador-mobile-frame position-relative">
+          <img 
+            src={mentorImg} 
+            alt="Founder & Mentor" 
+            className="ambassador-mentor-img-mobile" 
+          />
+          <div className="hero-ambassador-badge ambassador-badge-mobile">
+            <span className="ambassador-badge-text">Founder & Mentor</span>
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 };
