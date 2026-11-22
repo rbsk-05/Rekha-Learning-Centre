@@ -5,7 +5,6 @@ import About from '../components/About';
 import Courses from '../components/Courses';
 import LearningMethod from '../components/LearningMethod';
 import Gallery from '../components/Gallery';
-import Testimonials from '../components/Testimonials';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import FloatingBackground from '../components/common/FloatingBackground';
@@ -21,7 +20,6 @@ const Home = () => {
         <Courses />
         <LearningMethod />
         <Gallery />
-        <Testimonials />
         <Contact />
       </main>
       <Footer />

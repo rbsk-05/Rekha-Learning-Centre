@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FaGraduationCap, FaChalkboardTeacher, FaRegSmileBeam } from 'react-icons/fa';
-import aboutImg from '../assets/images/b-roll/a5.jpg';
+import aboutImg from "../assets/images/people/5_CHILDREN'S_DAY/s25.jpg";
 
 const About = () => {
   return (
@@ -44,25 +44,33 @@ const About = () => {
           </Col>
           
           <Col lg={6}>
-            <div className="position-relative ps-lg-4">
-              <img 
-                src={aboutImg} 
-                alt="Students learning at Rekha Learning Centre" 
-                className="img-fluid rounded-4 shadow-sm"
-                style={{ objectFit: 'cover', height: '420px', width: '100%', border: '1px solid var(--border-light)' }}
-              />
+            <div className="ps-lg-4">
+              <div className="overflow-hidden rounded-4 shadow-sm bg-white border" style={{ borderColor: 'var(--border-light)' }}>
+                <img 
+                  src={aboutImg} 
+                  alt="Students and community at Rekha Learning Centre" 
+                  className="img-fluid w-100 d-block"
+                  style={{ 
+                    width: '100%', 
+                    height: 'auto',
+                    objectFit: 'contain'
+                  }}
+                />
+              </div>
+
+              {/* Callout placed cleanly below photo to ensure all students are 100% visible and uncropped */}
               <div 
-                className="position-absolute p-4 rounded-4 shadow bg-white" 
+                className="mt-3 p-3 px-4 rounded-4 shadow-sm bg-white border d-flex align-items-center gap-3" 
                 style={{ 
-                  bottom: '-25px', 
-                  left: '10px', 
-                  borderLeft: '4px solid var(--secondary-color)',
-                  maxWidth: '220px',
-                  zIndex: 3
+                  borderLeft: '5px solid var(--secondary-color)',
+                  borderColor: 'var(--border-light)'
                 }}
               >
-                <div className="display-5 fw-bold text-primary-custom mb-0">100%</div>
-                <div className="text-dark fw-semibold small">Focus on Concept Clarity</div>
+                <div className="display-6 fw-bold text-primary-custom mb-0 lh-1">100%</div>
+                <div>
+                  <div className="text-dark fw-bold small">Focus on Concept Clarity</div>
+                  <div className="text-muted small" style={{ fontSize: '0.82rem' }}>Every child learns with confidence and personal guidance</div>
+                </div>
               </div>
             </div>
           </Col>

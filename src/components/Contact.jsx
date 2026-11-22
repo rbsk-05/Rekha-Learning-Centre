@@ -29,9 +29,9 @@ const Contact = () => {
     setStatus({ type: '', message: '' });
 
     try {
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'SERVICE_ID';
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'TEMPLATE_ID';
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'PUBLIC_KEY';
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_9vz8bfd';
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_wtnd8mi';
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'X_gkukj9g-3CMWa1e';
 
       const templateParams = {
         from_name: formData.name,
@@ -63,7 +63,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="section-padding bg-white">
+    <section id="contact" className="section-padding bg-subtle-section">
       <Container>
         <div className="text-center mb-5">
           <h2 className="display-6 fw-bold text-primary-custom mb-3">Contact Us</h2>

@@ -43,7 +43,6 @@ const Navigation = () => {
             <Nav.Link href="/#courses">Courses</Nav.Link>
             <Nav.Link href="/#methodology">Learning Method</Nav.Link>
             <Nav.Link href="/#gallery">Gallery</Nav.Link>
-            <Nav.Link href="/#testimonials">Testimonials</Nav.Link>
             <Nav.Link href="/#contact" className="ms-lg-2">
               <span className="btn btn-custom py-2 px-3 fs-6 d-inline-block">Contact</span>
             </Nav.Link>

@@ -3,8 +3,7 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { 
   FaGraduationCap, FaBookOpen, FaLightbulb, FaAtom, 
   FaPencilAlt, FaCalculator, FaGlobe, FaPalette, 
-  FaCompass, FaCertificate, FaStar, FaAward, 
-  FaHeart, FaPaperPlane
+  FaCompass, FaStar, FaAward, FaPaperPlane
 } from 'react-icons/fa';
 
 // Subtle, well-spaced educational doodles distributed across scroll sections
@@ -26,16 +25,12 @@ const doodles = [
   { icon: <FaAtom size={38} />, top: '57%', right: '4%', color: 'var(--secondary-color)', opacity: 0.08, duration: 13, delay: 0.7 },
 
   // Section 5: Gallery area
-  { icon: <FaPalette size={36} />, top: '66%', left: '3.5%', color: 'var(--accent-color)', opacity: 0.08, duration: 10, delay: 2.2 },
-  { icon: <FaStar size={32} />, top: '72%', right: '3.5%', color: 'var(--primary-color)', opacity: 0.085, duration: 12, delay: 1.0 },
+  { icon: <FaPalette size={36} />, top: '69%', left: '3.5%', color: 'var(--accent-color)', opacity: 0.08, duration: 10, delay: 2.2 },
+  { icon: <FaStar size={32} />, top: '78%', right: '3.5%', color: 'var(--primary-color)', opacity: 0.085, duration: 12, delay: 1.0 },
 
-  // Section 6: Testimonials area
-  { icon: <FaHeart size={30} />, top: '80%', left: '3%', color: 'var(--secondary-color)', opacity: 0.075, duration: 14, delay: 0.5 },
-  { icon: <FaCertificate size={36} />, top: '86%', right: '4%', color: 'var(--leaf-green)', opacity: 0.08, duration: 11, delay: 1.7 },
-
-  // Section 7: Contact area
-  { icon: <FaPaperPlane size={32} />, top: '92%', left: '3.5%', color: 'var(--primary-color)', opacity: 0.08, duration: 12, delay: 2.5 },
-  { icon: <FaAward size={36} />, top: '97%', right: '3%', color: 'var(--accent-color)', opacity: 0.085, duration: 13, delay: 0.9 }
+  // Section 6: Contact area
+  { icon: <FaPaperPlane size={32} />, top: '87%', left: '3.5%', color: 'var(--primary-color)', opacity: 0.08, duration: 12, delay: 2.5 },
+  { icon: <FaAward size={36} />, top: '95%', right: '3%', color: 'var(--accent-color)', opacity: 0.085, duration: 13, delay: 0.9 }
 ];
 
 // Interactive individual doodle with cursor proximity repulsion and grab/push physics
